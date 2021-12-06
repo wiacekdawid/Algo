@@ -7,16 +7,17 @@ import kotlin.collections.HashSet
  * Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]]
  * such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
  * Notice that the solution set must not contain duplicate triplets.
+ * time o(n2) space o(n)
  */
+
 class ThreeSum {
     fun threeSum(nums: IntArray): List<List<Int>> {
         if (nums.size < 3) return emptyList()
-        val localNums = nums
-        Arrays.sort(localNums)
+        Arrays.sort(nums)
         val result = mutableListOf<List<Int>>()
-        localNums.forEachIndexed { index, i ->
-            if (localNums[index] <= 0 && (index == 0 || localNums[index-1] != localNums[index])) {
-                twoSum(localNums, index, result)
+        nums.forEachIndexed { index, i ->
+            if (nums[index] <= 0 && (index == 0 || nums[index-1] != nums[index])) {
+                twoSum(nums, index, result)
             }
         }
         return result
