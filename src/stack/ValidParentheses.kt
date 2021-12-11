@@ -11,7 +11,9 @@ import java.util.*
  */
 
 class ValidParentheses {
-    val map = mapOf('(' to ')', '{' to '}', '[' to ']')
+
+    private val map = mapOf('(' to ')', '{' to '}', '[' to ']')
+
     fun isValid(s: String): Boolean {
         val stack = Stack<Char>()
         s.forEach {
