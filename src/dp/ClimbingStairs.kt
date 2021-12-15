@@ -7,7 +7,7 @@ package dp
 
 class ClimbingStairs {
     /**
-     * top down with memoizaiton (time complexity O(n)
+     * top down with memoizaiton - time complexity O(n)
      */
     private val map = mutableMapOf<Int, Int>()
 
