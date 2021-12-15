@@ -8,20 +8,31 @@ package linkedlist
  * doubly linked list. Let curr be a node with a child list.
  * The nodes in the child list should appear after curr and before curr.next in the flattened list.
  * Return the head of the flattened list. The nodes in the list must have all of their child pointers set to null.
+ * time/space o(N)
  */
 class FlattenAMultilevelDoublyLinkedList {
 
     fun flatten(root: Node?): Node? {
+        if (root == null) return null
+        val newNode = Node(0)
+        dfs(root, newNode)
+        newNode.next?.prev = null
 
+        return newNode.next
     }
 
-    // we are returning the tail of this flatter list
-    fun dfs(prev: Node, curr: Node): Node {
-        if (curr == null) return prev
-        curr.prev = prev
-        prev.next = curr
+    private fun dfs(current: Node? = null, previous: Node?): Node? {
+        if (current == null) return previous
 
+        current.prev = previous
+        previous?.next = current
 
+        val temp = current.next
+
+        val tail = dfs(current.child, current)
+        current.child = null
+
+        return dfs(temp, tail)
     }
 
     class Node(var `val`: Int) {
