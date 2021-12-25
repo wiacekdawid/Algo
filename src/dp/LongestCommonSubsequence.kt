@@ -43,4 +43,14 @@ class LongestCommonSubsequence {
         memo[p1][p2] = option1.coerceAtLeast(option2)
         return memo[p1][p2]
     }
+
+    /**
+     * bottom - up / time O(s1 * (pow 2 s2) / space O(s1 * s2)
+     */
+    fun longestCommonSubsequence2(text1: String, text2: String): Int {
+        memo = Array(text1.length) { IntArray(text2.length) { -1 } }
+        this.text1 = text1
+        this.text2 = text2
+        return dp(0, 0)
+    }
 }
