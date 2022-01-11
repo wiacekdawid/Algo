@@ -8,6 +8,10 @@ package dp
  * time O(M*N) / space O(min(M,N)) where M is length of first word and N is the lenght of second word
  */
 
+fun main() {
+    val result = LongestCommonSubsequence().longestCommonSubsequence("abc", "agbdce")
+}
+
 class LongestCommonSubsequence {
     private lateinit var memo: Array<IntArray>
     private lateinit var text1: String
@@ -17,7 +21,11 @@ class LongestCommonSubsequence {
      * top - down / time O(s1 * (pow 2 s2) / space O(s1 * s2)
      */
     fun longestCommonSubsequence(text1: String, text2: String): Int {
-        memo = Array(text1.length) { IntArray(text2.length) { -1 } }
+        memo = Array(text1.length+1) { IntArray(text2.length+1) }
+        for (i in text1.indices)
+            for (j in text2.indices)
+                memo[i][j] = -1
+
         this.text1 = text1
         this.text2 = text2
         return dp(0, 0)
@@ -48,10 +56,17 @@ class LongestCommonSubsequence {
     /**
      * bottom - up / time O(s1 * (pow 2 s2) / space O(s1 * s2)
      */
-    fun longestCommonSubsequence2(text1: String, text2: String): Int {
-        memo = Array(text1.length) { IntArray(text2.length) { -1 } }
-        this.text1 = text1
-        this.text2 = text2
-        return dp(0, 0)
-    }
+//    fun longestCommonSubsequence2(text1: String, text2: String): Int {
+//        memo = Array(text1.length) { IntArray(text2.length) { -1 } }
+//        this.text1 = text1
+//        this.text2 = text2
+//
+//        for (i in text1.indices) {
+//            for (j in text2.indices) {
+//
+//
+//            }
+//        }
+//        return dp(0, 0)
+//    }
 }
