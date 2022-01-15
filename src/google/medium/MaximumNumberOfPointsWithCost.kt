@@ -9,16 +9,45 @@ package google.medium
  * abs(x) is defined as:
  * x for x >= 0.
  * -x for x < 0.
+ * time O(m*n) / space O(1)
  */
 class MaximumNumberOfPointsWithCost {
-    val map = mutableMapOf<Int, Int>()
     fun maxPoints(points: Array<IntArray>): Long {
+        val m = points.size
+        val n = points[0].size
 
-    }
-
-    private fun dp(currentRow: Int, previousRow: Int, points: Array<IntArray>): Long {
-        if (currentRow == 0) {
-
+        var pre = LongArray(size = n)
+        points[0].forEachIndexed { index, i ->
+            pre[index] = i.toLong()
         }
+
+        for (i in 0  until m-1) {
+            val left = LongArray(n)
+            val right = LongArray(n)
+            val current = LongArray(n)
+
+            left[0] = pre[0]
+            right[n-1] = pre[n-1]
+
+            for (j in 1 until n) {
+                left[j] = Math.max(left[j-1]-1, pre[j])
+            }
+
+            for (j in n-2 downTo 0) {
+                right[j] = Math.max(right[j+1]-1, pre[j])
+            }
+
+            for (j in 0 until n) {
+                current[j] = points[i+1][j] + Math.max(left[j], right[j])
+            }
+            pre = current
+        }
+
+        var answer: Long = 0L
+        pre.forEach {
+            answer = Math.max(it, answer)
+        }
+
+        return answer
     }
 }
