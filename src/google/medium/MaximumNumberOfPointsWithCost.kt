@@ -11,6 +11,12 @@ package google.medium
  * -x for x < 0.
  * time O(m*n) / space O(1)
  */
+
+fun main() {
+    val test = arrayOf(intArrayOf(1,3,5,4,4), intArrayOf(1,3,4,5,6), intArrayOf(1,7,3,4,3))
+    val result = MaximumNumberOfPointsWithCost().maxPoints(test)
+}
+
 class MaximumNumberOfPointsWithCost {
     fun maxPoints(points: Array<IntArray>): Long {
         val m = points.size
@@ -30,22 +36,22 @@ class MaximumNumberOfPointsWithCost {
             right[n-1] = pre[n-1]
 
             for (j in 1 until n) {
-                left[j] = Math.max(left[j-1]-1, pre[j])
+                left[j] = (left[j - 1] - 1).coerceAtLeast(pre[j])
             }
 
             for (j in n-2 downTo 0) {
-                right[j] = Math.max(right[j+1]-1, pre[j])
+                right[j] = (right[j + 1] - 1).coerceAtLeast(pre[j])
             }
 
             for (j in 0 until n) {
-                current[j] = points[i+1][j] + Math.max(left[j], right[j])
+                current[j] = points[i+1][j] + left[j].coerceAtLeast(right[j])
             }
             pre = current
         }
 
-        var answer: Long = 0L
+        var answer = 0L
         pre.forEach {
-            answer = Math.max(it, answer)
+            answer = it.coerceAtLeast(answer)
         }
 
         return answer
