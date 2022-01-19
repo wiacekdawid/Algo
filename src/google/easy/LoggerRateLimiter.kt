@@ -13,6 +13,6 @@ package google.easy
  */
 class LoggerRateLimiter {
     fun shouldPrintMessage(timestamp: Int, message: String): Boolean {
-
+        return false
     }
 }
