@@ -8,34 +8,31 @@ package dp
  */
 
 class MinCostClimbingStairs {
-    /**
-     * top down / time/space O(N)
-     */
-    private val map = HashMap<Int, Int>()
 
+    /**
+     * top down / O(N)
+     */
+    private val costMap = mutableMapOf<Int, Int>()
     fun minCostClimbingStairs(cost: IntArray): Int {
-        if (cost.isEmpty()) return 0
-        if (cost.size == 1) return cost[1]
-        return dp(cost.size, cost)
+        return dp(cost.size-1, cost)
     }
 
     private fun dp(currentStep: Int, cost: IntArray): Int {
-        if (currentStep <= 1) return 0
-        if (!map.containsKey(currentStep)) {
-            val oneStepPlus = dp(currentStep-1, cost) + cost[currentStep-1]
-            val twoStepPlus = dp(currentStep-2, cost) + cost[currentStep-2]
-            map[currentStep] = oneStepPlus.coerceAtMost(twoStepPlus)
+        if (currentStep <= 1)
+            return 0
+
+        if (!costMap.containsKey(currentStep)) {
+            costMap[currentStep] = (cost[currentStep-1] + dp(currentStep-1, cost))
+                .coerceAtMost(cost[currentStep-2] + dp(currentStep-2, cost))
         }
-        return map[currentStep] ?: 0
+
+        return costMap[currentStep] ?: 0
     }
 
     /**
      * bottom - up / time/space O(N)
      */
     fun minCostClimbingStairs2(cost: IntArray): Int {
-        if (cost.isEmpty()) return 0
-        if (cost.size == 1) return cost[1]
-
         val array = IntArray(cost.size+1)
 
         for (i in 2 until array.size) {
