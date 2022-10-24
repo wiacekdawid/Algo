@@ -10,10 +10,25 @@ package dp
  */
 
 class NthTribonacciNumber {
+
     /**
-     * 3 numbers
+     * top down
      */
+    val tribonacciMap = mutableMapOf<Int, Int>()
+
     fun tribonacci(n: Int): Int {
+        if (n == 0) return 0
+        if (n == 1 || n == 2) return 1
+        if (!tribonacciMap.containsKey(n)) {
+            tribonacciMap[n] = tribonacci(n-1) + tribonacci(n-2) + tribonacci(n-3)
+        }
+        return tribonacciMap[n] ?: 0
+    }
+
+    /**
+     * 3 numbers optimase space - keeping only last 3 numbers
+     */
+    fun tribonacci3(n: Int): Int {
         if (n < 3) return if (n == 0) 0 else 1
         var tmp: Int
         var x = 0
@@ -27,29 +42,11 @@ class NthTribonacciNumber {
         }
         return z
     }
-    /**
-     * top down
-     */
-    private val map = HashMap<Int, Int>()
-
-    fun tribonacci2(n: Int): Int {
-        return dp(n)
-    }
-
-    private fun dp(i: Int): Int {
-        if (i == 0) return 0
-        if (i == 1) return 1
-        if (i == 2) return 1
-        if (!map.containsKey(i)) {
-            map[i] = dp(i-1) + dp(i-2) + dp(i-3)
-        }
-        return map[i] ?: 0
-    }
 
     /**
      * bottom up
      */
-    fun tribonacci3(n: Int): Int {
+    fun tribonacci2(n: Int): Int {
         if (n < 3) return if (n == 0) 0 else 1
         val array = IntArray(n+1)
         array[0] = 0
