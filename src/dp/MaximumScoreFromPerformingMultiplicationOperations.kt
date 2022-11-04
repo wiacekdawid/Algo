@@ -17,6 +17,9 @@ fun main() {
 
 class MaximumScoreFromPerformingMultiplicationOperations {
 
+    /**
+     * top down - time/space O(N)
+     */
     private var cache: Array<IntArray>? = null
 
     fun maximumScore(nums: IntArray, multipliers: IntArray): Int {
@@ -43,46 +46,24 @@ class MaximumScoreFromPerformingMultiplicationOperations {
 
         } ?: return 0
     }
-//    /**
-//     * top - down - space/time O(pow 2 multipliers.size)
-//     */
-//    private var memo: Array<IntArray>? = null
-//
-//    private fun dp(i: Int, left: Int, nums: IntArray, multipliers: IntArray): Int {
-//        if (i == multipliers.size) {
-//            return 0 // Base case
-//        }
-//        val currentMultiplayer = multipliers[i]
-//        val right = nums.size - 1 - (i - left)
-//        if (memo?.get(i)?.get(left) ?: 0 == 0) {
-//            // Recurrence relation
-//            memo?.get(i)?.set(left,
-//                (currentMultiplayer * nums[left] + dp(i + 1, left + 1, nums, multipliers))
-//                    .coerceAtLeast(currentMultiplayer * nums[right] + dp(i + 1, left, nums, multipliers))
-//            )
-//        }
-//        return memo?.get(i)?.get(left) ?: 0
-//    }
-//
-//    fun maximumScore(nums: IntArray, multipliers: IntArray): Int {
-//        memo = Array(multipliers.size) { IntArray(multipliers.size) }
-//        return dp(0, 0, nums, multipliers)
-//    }
-//
-//    /**
-//     * bottom - up - space/time O(pow 2 multipliers.size)
-//     */
-//    fun maximumScore2(nums: IntArray, multipliers: IntArray): Int {
-//        val dp = Array(multipliers.size+1) { IntArray(multipliers.size+1) }
-//        for (i in multipliers.size-1 downTo 0) {
-//            for (left in i downTo 0) {
-//                val currentMultiplayer = multipliers[i]
-//                val right = nums.size - 1 - (i-left)
-//                val option1 = currentMultiplayer * nums[left] + dp[i+1][left+1]
-//                val option2 = currentMultiplayer * nums[right] + dp[i+1][left]
-//                dp[i][left] = option1.coerceAtLeast(option2)
-//            }
-//        }
-//        return dp[0][0]
-//    }
+
+    /**
+     * bottom - up - space/time O(pow 2 multipliers.size * nums.size)
+     */
+    fun maximumScore2(nums: IntArray, multipliers: IntArray): Int {
+        val dp = Array(multipliers.size+1) { IntArray(nums.size+1)  { 0 } }
+
+        for (mIndex in multipliers.size-1 downTo 0) {
+            val currentMultiplier = multipliers[mIndex]
+
+            for (left in mIndex downTo 0) {
+                val right = nums.size - 1 - (mIndex - left)
+
+                val leftGain = currentMultiplier * nums[left] + dp[mIndex+1][left+1]
+                val rightGain = currentMultiplier * nums[right] + dp[mIndex+1][left]
+                dp[mIndex][left] = leftGain.coerceAtLeast(rightGain)
+            }
+        }
+        return dp[0][0]
+    }
 }
