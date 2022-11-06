@@ -9,7 +9,7 @@ package dp
  */
 
 fun main() {
-    val result = LongestCommonSubsequence().longestCommonSubsequence("abc", "agbdce")
+    val result = LongestCommonSubsequence().longestCommonSubsequence2("abcde", "ace")
 }
 
 class LongestCommonSubsequence {
@@ -44,19 +44,22 @@ class LongestCommonSubsequence {
     }
 
     /**
-     * bottom - up / time O(s1 * (pow 2 s2) / space O(s1 * s2)
+     * bottom - up / time O(s1 * s2) / space O(s1 * s2)
      */
-//    fun longestCommonSubsequence2(text1: String, text2: String): Int {
-//        memo = Array(text1.length) { IntArray(text2.length) { -1 } }
-//        this.text1 = text1
-//        this.text2 = text2
-//
-//        for (i in text1.indices) {
-//            for (j in text2.indices) {
-//
-//
-//            }
-//        }
-//        return dp(0, 0)
-//    }
+    fun longestCommonSubsequence2(text1: String, text2: String): Int {
+        val results = Array(text1.length+1) { IntArray(text2.length+1) { 0 } }
+
+        var currentMax = 0
+        for (index1 in 1 until text1.length+1) {
+            for (index2 in 1 until text2.length+1) {
+                if (text1[index1-1] == text2[index2-1]) {
+                    results[index1][index2] = 1 + results[index1-1][index2-1]
+                } else {
+                    results[index1][index2] = results[index1][index2-1].coerceAtLeast(results[index1-1][index2])
+                }
+                currentMax = currentMax.coerceAtLeast(results[index1][index2])
+            }
+        }
+        return currentMax
+    }
 }
