@@ -28,9 +28,6 @@ class MaximumScoreFromPerformingMultiplicationOperations {
     }
 
     private fun dp(i: Int, left: Int, nums: IntArray, multipliers: IntArray) : Int {
-        if (i == multipliers.size) {
-            return 0
-        }
 
         cache?.let {
             if (it[i][left] != -1) {

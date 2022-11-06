@@ -13,44 +13,34 @@ fun main() {
 }
 
 class LongestCommonSubsequence {
-    private lateinit var memo: Array<IntArray>
-    private lateinit var text1: String
-    private lateinit var text2: String
 
     /**
      * top - down / time O(s1 * (pow 2 s2) / space O(s1 * s2)
      */
-    fun longestCommonSubsequence(text1: String, text2: String): Int {
-        memo = Array(text1.length+1) { IntArray(text2.length+1) }
-        for (i in text1.indices)
-            for (j in text2.indices)
-                memo[i][j] = -1
+    private lateinit var cache: Array<IntArray>
 
-        this.text1 = text1
-        this.text2 = text2
-        return dp(0, 0)
+    fun longestCommonSubsequence(text1: String, text2: String): Int {
+        cache = Array(text1.length) { IntArray(text2.length) { -1 } }
+
+        return dp(0, 0, text1, text2)
     }
 
-    private fun dp(p1: Int, p2: Int): Int {
-        if (memo[p1][p2] != -1) {
-            return memo[p1][p2]
+
+
+    private fun dp(index1: Int, index2: Int, text1: String, text2: String): Int {
+        if (index1 >= text1.length || index2 >= text2.length)
+            return 0
+
+        if (cache[index1][index2] == -1) {
+            cache[index1][index2] =
+                if (text1[index1] == text2[index2]) {
+                    1 + dp(index1 + 1, index2 + 1, text1, text2)
+                } else {
+                    dp(index1 + 1, index2, text1, text2).coerceAtLeast(dp(index1, index2 + 1, text1, text2))
+                }
         }
 
-        // Option 1: we don't include text1[p1] in the solution.
-        val option1: Int = dp(p1 + 1, p2)
-
-
-        // Option 2: We include text1[p1] in the solution, as long as
-        // a match for it in text2 at or after p2 exists.
-        val firstOccurence = text2.indexOf(text1[p1], p2)
-        var option2 = 0
-        if (firstOccurence != -1) {
-            option2 = 1 + dp(p1 + 1, firstOccurence + 1)
-        }
-
-        // Add the best answer to the memo before returning it.
-        memo[p1][p2] = option1.coerceAtLeast(option2)
-        return memo[p1][p2]
+        return cache[index1][index2]
     }
 
     /**
