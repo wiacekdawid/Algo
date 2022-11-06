@@ -26,7 +26,6 @@ class LongestCommonSubsequence {
     }
 
 
-
     private fun dp(index1: Int, index2: Int, text1: String, text2: String): Int {
         if (index1 >= text1.length || index2 >= text2.length)
             return 0
@@ -47,19 +46,16 @@ class LongestCommonSubsequence {
      * bottom - up / time O(s1 * s2) / space O(s1 * s2)
      */
     fun longestCommonSubsequence2(text1: String, text2: String): Int {
-        val results = Array(text1.length+1) { IntArray(text2.length+1) { 0 } }
-
-        var currentMax = 0
-        for (index1 in 1 until text1.length+1) {
-            for (index2 in 1 until text2.length+1) {
-                if (text1[index1-1] == text2[index2-1]) {
-                    results[index1][index2] = 1 + results[index1-1][index2-1]
+        val results = Array(text1.length + 1) { IntArray(text2.length + 1) { 0 } }
+        for (index1 in 1 until text1.length + 1) {
+            for (index2 in 1 until text2.length + 1) {
+                if (text1[index1 - 1] == text2[index2 - 1]) {
+                    results[index1][index2] = 1 + results[index1 - 1][index2 - 1]
                 } else {
-                    results[index1][index2] = results[index1][index2-1].coerceAtLeast(results[index1-1][index2])
+                    results[index1][index2] = results[index1][index2 - 1].coerceAtLeast(results[index1 - 1][index2])
                 }
-                currentMax = currentMax.coerceAtLeast(results[index1][index2])
             }
         }
-        return currentMax
+        return results[text1.length][text2.length]
     }
 }
