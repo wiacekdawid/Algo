@@ -44,4 +44,38 @@ class MaximalSquare {
 
         return cache[x][y]
     }
+
+    /**
+     * bottom up - time / space O(N)
+     */
+
+    fun maximalSquare2(matrix: Array<CharArray>): Int {
+        cache = Array(matrix.size) { IntArray(matrix.first().size) { -1 } }
+
+        val horizontalSize = matrix.size
+        val verticalSize = matrix.first().size
+
+        for (x in horizontalSize-1 downTo 0)
+            for (y in verticalSize-1 downTo 0) {
+                if (x == horizontalSize-1 || y == verticalSize-1) {
+                    cache[x][y] = if (matrix[x][y] == '1') 1 else 0
+                } else if (matrix[x][y] == '1') {
+                    val right = cache[x+1][y]
+                    val diagonal = cache[x+1][y+1]
+                    val left = cache[x][y+1]
+                    cache[x][y] = 1 + right.coerceAtMost(diagonal).coerceAtMost(left)
+                } else {
+                    cache[x][y] = 0
+                }
+            }
+
+        var maxValue = 0
+        cache.forEach {
+            it.forEach {
+                maxValue = maxValue.coerceAtLeast(it)
+            }
+        }
+
+        return maxValue * maxValue
+    }
 }
