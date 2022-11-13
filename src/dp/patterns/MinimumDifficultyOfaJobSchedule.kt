@@ -15,6 +15,10 @@ fun main() {
 }
 
 class MinimumDifficultyOfaJobSchedule {
+
+    /**
+     * top down - time O(n^2 * d) - space O(n*d)
+     */
     private lateinit var cache: Array<IntArray>
 
     fun minDifficulty(jobDifficulty: IntArray, d: Int): Int {
@@ -41,7 +45,7 @@ class MinimumDifficultyOfaJobSchedule {
                 var leftMax = 0
                 for (i in currentPosition until jobDifficulty.size - currentDay + 1) {
                     leftMax = leftMax.coerceAtLeast(jobDifficulty[i])
-                    val rightMax = dp(currentDay-1, currentPosition+1, jobDifficulty)
+                    val rightMax = dp(currentDay-1, i+1, jobDifficulty)
                     minValue = minValue.coerceAtMost(leftMax+rightMax)
                 }
                 cache[currentDay][currentPosition] = minValue
@@ -49,5 +53,37 @@ class MinimumDifficultyOfaJobSchedule {
         }
 
         return cache[currentDay][currentPosition]
+    }
+
+    /**
+     * bottom up - time O(n^2 * d) - space O(n*d)
+     */
+
+    fun minDifficulty2(jobDifficulty: IntArray, d: Int): Int {
+        val n = jobDifficulty.size
+
+        val minDiff = Array(d + 1) { IntArray(n + 1) }
+
+        for (daysRemaining in 0..d) {
+            for (i in 0 until n) {
+                minDiff[daysRemaining][i] = Int.MAX_VALUE
+            }
+        }
+
+        for (daysRemaining in 1..d) {
+            for (i in 0 until n - daysRemaining + 1) {
+                var dailyMaxJobDiff = 0
+                for (j in i + 1 until n - daysRemaining + 2) {
+
+                    dailyMaxJobDiff = dailyMaxJobDiff.coerceAtLeast(jobDifficulty[j - 1])
+
+                    if (minDiff[daysRemaining - 1][j] != Int.MAX_VALUE) {
+                        minDiff[daysRemaining][i] =
+                            minDiff[daysRemaining][i].coerceAtMost(dailyMaxJobDiff + minDiff[daysRemaining - 1][j])
+                    }
+                }
+            }
+        }
+        return if (minDiff[d][0] < Int.MAX_VALUE) minDiff[d][0] else -1
     }
 }
