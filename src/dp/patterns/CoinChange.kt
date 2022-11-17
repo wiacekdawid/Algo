@@ -8,7 +8,32 @@ package dp.patterns
  * You may assume that you have an infinite number of each kind of coin.
  */
 class CoinChange {
-    fun coinChange(coins: IntArray, amount: Int): Int {
 
+    /**
+     * top down - time O(S*n) where S is amount, n denomination count / space O(S)
+     */
+    fun coinChange(coins: IntArray, amount: Int): Int {
+        if (amount < 1) return 0
+        return dp(coins, amount, IntArray(amount))
+
+    }
+
+    private fun dp(coins: IntArray, remainAmount: Int, count: IntArray): Int {
+        if (remainAmount < 0) return -1
+        if (remainAmount == 0) return 0
+        if (count[remainAmount - 1] != 0) return count[remainAmount-1]
+
+        var min = Int.MAX_VALUE
+
+        coins.forEach { coin ->
+            val res = dp(coins, remainAmount - coin, count)
+            if (res in 0 until min) {
+                min = 1 + res
+            }
+        }
+
+        count[remainAmount-1] = if (min == Int.MAX_VALUE) -1 else min
+
+        return count[remainAmount-1]
     }
 }
