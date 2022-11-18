@@ -36,4 +36,24 @@ class CoinChange {
 
         return count[remainAmount-1]
     }
+
+    /**
+     * bottom up - time O(S*n) where S is amount, n denomination count / space O(S)
+     */
+
+    fun coinChange2(coins: IntArray, amount: Int): Int {
+        if (amount < 1) return 0
+
+        val count = IntArray(amount) { -1 }
+        count[0] = 0
+
+        for (remainAmount in 1 until amount) {
+            var min = Int.MAX_VALUE
+            coins.forEach { coin
+
+            }
+        }
+
+        return count[amount]
+    }
 }
