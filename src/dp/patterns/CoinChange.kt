@@ -47,13 +47,13 @@ class CoinChange {
         val count = IntArray(amount) { -1 }
         count[0] = 0
 
-        for (remainAmount in 1 until amount) {
-            var min = Int.MAX_VALUE
-            coins.forEach { coin
-
+        for (i in 1..amount) {
+            for (j in 0 until coins.size) {
+                if (coins[j] <= i) {
+                    count[i] = count[i].coerceAtMost(count[i - coins[j]] + 1)
+                }
             }
         }
-
-        return count[amount]
+        return if (count[amount] > amount) -1 else count[amount]
     }
 }
