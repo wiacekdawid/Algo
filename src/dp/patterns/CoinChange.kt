@@ -14,14 +14,14 @@ class CoinChange {
      */
     fun coinChange(coins: IntArray, amount: Int): Int {
         if (amount < 1) return 0
-        return dp(coins, amount, IntArray(amount))
+        return dp(coins, amount, IntArray(amount+1))
 
     }
 
     private fun dp(coins: IntArray, remainAmount: Int, count: IntArray): Int {
         if (remainAmount < 0) return -1
         if (remainAmount == 0) return 0
-        if (count[remainAmount - 1] != 0) return count[remainAmount-1]
+        if (count[remainAmount] != 0) return count[remainAmount]
 
         var min = Int.MAX_VALUE
 
@@ -32,9 +32,9 @@ class CoinChange {
             }
         }
 
-        count[remainAmount-1] = if (min == Int.MAX_VALUE) -1 else min
+        count[remainAmount] = if (min == Int.MAX_VALUE) -1 else min
 
-        return count[remainAmount-1]
+        return count[remainAmount]
     }
 
     /**
@@ -44,11 +44,11 @@ class CoinChange {
     fun coinChange2(coins: IntArray, amount: Int): Int {
         if (amount < 1) return 0
 
-        val count = IntArray(amount) { -1 }
+        val count = IntArray(amount+1) { amount+1 }
         count[0] = 0
 
         for (i in 1..amount) {
-            for (j in 0 until coins.size) {
+            for (j in coins.indices) {
                 if (coins[j] <= i) {
                     count[i] = count[i].coerceAtMost(count[i - coins[j]] + 1)
                 }
