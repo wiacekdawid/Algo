@@ -6,7 +6,12 @@ package dp.patterns
  * Note that the same word in the dictionary may be reused multiple times in the segmentation.
  */
 class WordBreak {
+    // top down
     fun wordBreak(s: String, wordDict: List<String>): Boolean {
+        return false
+    }
 
+    private fun dp(i: Integer): Boolean {
+        return false
     }
 }
