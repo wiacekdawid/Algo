@@ -6,12 +6,12 @@ package dp.patterns
  * Note that the same word in the dictionary may be reused multiple times in the segmentation.
  */
 class WordBreak {
-    // top down
+    // top down - space O(n), time O(n * k * L) where n = s.length , k wordDict length, L is average length of word in dict
 
     lateinit var cache: IntArray
 
     fun wordBreak(s: String, wordDict: List<String>): Boolean {
-        cache = IntArray(s.length)
+        cache = IntArray(s.length) {-1 }
         return dp(s.length, s, wordDict)
     }
 
