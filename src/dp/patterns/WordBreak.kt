@@ -1,5 +1,6 @@
 package dp.patterns
 
+
 /**
  * Given a string s and a dictionary of strings wordDict, return true if s can be segmented into
  * a space-separated sequence of one or more dictionary words.
@@ -34,5 +35,22 @@ class WordBreak {
         }
 
         return cache[i] == 1
+    }
+
+    // bottom up - space O(n), time O(n * k * L) where n = s.length , k wordDict length, L is average length of word in dict
+
+    fun wordBreak2(s: String, wordDict: List<String>): Boolean {
+        val wordDictSet: Set<String> = HashSet(wordDict)
+        val dp = BooleanArray(s.length + 1)
+        dp[0] = true
+        for (i in 1..s.length) {
+            for (j in 0 until i) {
+                if (dp[j] && wordDictSet.contains(s.substring(j, i))) {
+                    dp[i] = true
+                    break
+                }
+            }
+        }
+        return dp[s.length]
     }
 }
