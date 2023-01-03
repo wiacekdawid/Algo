@@ -51,6 +51,41 @@ class LongestIncreasingSubsequence {
         return sub.size
     }
 
+    // simplified substring solution - time O(N logN)
+
+    fun lengthOfLIS4(nums: IntArray): Int {
+        val sub = mutableListOf<Int>()
+        sub.add(nums.first())
+
+        for (i in 1 until nums.size) {
+            val num = nums[i]
+            if (num > sub.last()) {
+                sub.add(num)
+            } else {
+                var j = searchForIndex(num, sub)
+                sub[j] = num
+            }
+        }
+        return sub.size
+    }
+
+    private fun searchForIndex(value: Int, sub: MutableList<Int>): Int {
+        var left = 0
+        var right = sub.size-1
+        while (left < right) {
+            val middle = (left + right) / 2
+            if (sub[middle] == value)
+                return middle
+
+            if (sub[middle] < value) {
+                left = middle+1
+            } else {
+                right = middle
+            }
+        }
+        return left
+    }
+
     // recursion
     private lateinit var maxForPosition: IntArray
     fun lengthOfLIS(nums: IntArray): Int {
