@@ -7,6 +7,11 @@ package dp.patterns
  * After you sell your stock, you cannot buy stock on the next day (i.e., cooldown one day).
  * Note: You may not engage in multiple transactions simultaneously (i.e., you must sell the stock before you buy again).
  */
+
+fun main() {
+    val test = BestTimeToBuyAndSellStockWithCooldown().maxProfit2(intArrayOf(1,2,3,0,2))
+}
+
 class BestTimeToBuyAndSellStockWithCooldown {
 
     // top down - time and space - O(n*k)
@@ -39,5 +44,34 @@ class BestTimeToBuyAndSellStockWithCooldown {
         }
 
         return memo[currentPrice][previousDaySellStock][holdingStock]
+    }
+
+    // bottom up - time and space - O(n*k)
+
+    fun maxProfit2(prices: IntArray): Int {
+        val memo = Array(prices.size + 1) { Array(2) { IntArray(2) { 0 } } }
+
+        for (currentPrice in prices.size downTo 0) {
+            for (previousDaySellStock in 0 until 2) {
+                for (holdingStock in 0 until 2) {
+                    if (previousDaySellStock == 1) {
+                        memo[currentPrice][previousDaySellStock][holdingStock] =
+                            memo[currentPrice + 1][0][0]
+                    } else {
+                        val doNothing = memo[currentPrice + 1][previousDaySellStock][holdingStock]
+
+                        val doSomething =
+                            if (holdingStock == 1) {
+                                memo[currentPrice + 1][1][0] + prices[currentPrice]
+                            } else {
+                                memo[currentPrice + 1][0][1] - prices[currentPrice]
+                            }
+                        memo[currentPrice][previousDaySellStock][holdingStock] = doNothing.coerceAtLeast(doSomething)
+                    }
+                }
+            }
+        }
+
+        return memo[0][0][0]
     }
 }

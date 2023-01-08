@@ -8,7 +8,7 @@ package dp.patterns
 
 class BestTimeToBuyAndSellStockIV {
 
-    // top down - time and space - O(n*k)
+    // top down - time and space - O(n)
     private lateinit var memo: Array<Array<IntArray>>
 
     fun maxProfit(k: Int, prices: IntArray): Int {
@@ -34,7 +34,7 @@ class BestTimeToBuyAndSellStockIV {
         return memo[currentPrice][transactionsRemaining][holdingStock]
     }
 
-    // top bottom up - time and space - O(n*k)
+    // top bottom up - time and space - O(n)
     fun maxProfit2(k: Int, prices: IntArray): Int {
         val memo = Array(prices.size + 1) { Array(k+1) { IntArray(2) { 0 } } }
 
