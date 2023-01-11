@@ -1,5 +1,6 @@
 package dp
 
+
 /**
  * You are given an integer array cost where cost[i] is the cost of ith step on a staircase.
  * Once you pay the cost, you can either climb one or two steps.
@@ -14,12 +15,12 @@ class MinCostClimbingStairs {
      */
     private val costMap = mutableMapOf<Int, Int>()
     fun minCostClimbingStairs(cost: IntArray): Int {
-        return dp(cost.size-1, cost)
+        return dp(cost.size, cost)
     }
 
     private fun dp(currentStep: Int, cost: IntArray): Int {
         if (currentStep <= 1)
-            return 0
+            return cost[currentStep]
 
         if (!costMap.containsKey(currentStep)) {
             costMap[currentStep] = (cost[currentStep-1] + dp(currentStep-1, cost))

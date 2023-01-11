@@ -7,22 +7,23 @@ package dp.patterns.statereduction
  * Return the minimum cost to reach the top of the floor.
  */
 class MinCostClimbingStairs {
-    private val memo = mutableMapOf<Int, Int>()
-
+    /**
+     * top down / O(N)
+     */
+    private val costMap = mutableMapOf<Int, Int>()
     fun minCostClimbingStairs(cost: IntArray): Int {
-        return dp(cost.size-1, cost)
+        return dp(cost.size, cost)
     }
 
     private fun dp(currentStep: Int, cost: IntArray): Int {
-        if (currentStep <= 1) {
-            return 0
-        }
-        if (!memo.containsKey(currentStep)) {
-            val plus1 = cost[currentStep - 1] + dp(currentStep - 1, cost)
-            val plus2 = cost[currentStep - 2] + dp(currentStep - 2, cost)
+        if (currentStep <= 1)
+            return cost[currentStep]
 
-            memo[currentStep] = plus1.coerceAtMost(plus2)
+        if (!costMap.containsKey(currentStep)) {
+            costMap[currentStep] = (cost[currentStep-1] + dp(currentStep-1, cost))
+                .coerceAtMost(cost[currentStep-2] + dp(currentStep-2, cost))
         }
-        return memo[currentStep] ?: 0
+
+        return costMap[currentStep] ?: 0
     }
 }
