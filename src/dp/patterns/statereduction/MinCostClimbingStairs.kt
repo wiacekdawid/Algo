@@ -26,4 +26,17 @@ class MinCostClimbingStairs {
 
         return costMap[currentStep] ?: 0
     }
+
+    /**
+     * bottom - up / time/space O(N)
+     */
+    fun minCostClimbingStairs2(cost: IntArray): Int {
+        val result = intArrayOf(cost.size+1)
+        for (i in 2 until cost.size) {
+            result[i] = (result[i-2] + cost[i-2]).coerceAtMost(result[i-1] + cost[i-1])
+        }
+        return result[cost.size]
+    }
+
+
 }
