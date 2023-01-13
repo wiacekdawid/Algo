@@ -8,6 +8,9 @@ package dp
  * Return the minimum cost to reach the top of the floor.
  */
 
+fun main() {
+    val test = MinCostClimbingStairs().minCostClimbingStairs2(intArrayOf(10, 15, 20))
+}
 class MinCostClimbingStairs {
 
     /**
@@ -31,17 +34,17 @@ class MinCostClimbingStairs {
     }
 
     /**
-     * bottom - up / time/space O(N)
+     * bottom - up / time O(N) / space O(1)
      */
     fun minCostClimbingStairs2(cost: IntArray): Int {
-        val array = IntArray(cost.size+1)
-
-        for (i in 2 until array.size) {
-            val oneStepPlus = array[i-1] + cost[i-1]
-            val twoStepPlus = array[i-2] + cost[i-2]
-            array[i] = oneStepPlus.coerceAtMost(twoStepPlus)
+        var minusOne = 0
+        var minusTwo = 0
+        for (i in 2 until cost.size) {
+            val temp = minusOne
+            minusOne = (minusOne + cost[i-1]).coerceAtMost(minusTwo + cost[i-2])
+            minusTwo = temp
         }
 
-        return array[cost.size]
+        return minusOne
     }
 }
