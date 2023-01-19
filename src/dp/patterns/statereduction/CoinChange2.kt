@@ -9,8 +9,9 @@ import kotlin.math.sign
  * The answer is guaranteed to fit into a signed 32-bit integer.
  */
 
-// bottom up time O(n * amount) / space O(amount)
 class CoinChange2 {
+
+    // bottom up time O(n * amount) / space O(amount)
     fun change(amount: Int, coins: IntArray): Int {
         val cache = IntArray(amount+1)
         cache[0] = 1
@@ -21,5 +22,35 @@ class CoinChange2 {
             }
         }
         return cache[amount]
+    }
+
+    // top down time O(n * amount) / space O(amount)
+    private lateinit var cache: IntArray
+
+    fun change2(amount: Int, coins: IntArray): Int {
+        cache = IntArray(amount+1) { -1 }
+        cache[0] = 1
+
+        coins.forEach { currentCoin ->
+            for (currentAmount in currentCoin until amount+1) {
+                cache[currentAmount] += cache[currentAmount - currentCoin]
+            }
+        }
+        return cache[amount]
+    }
+
+    private fun dp(currentAmount: Int, amount: Int, coins: IntArray): Int {
+        if (currentAmount == 0)
+            return 1
+
+        if (cache[currentAmount] == -1) {
+            coins.forEach { currentCoin ->
+                for (currentAmount in currentCoin until amount+1) {
+                    cache[currentAmount] =
+                }
+            }
+        }
+
+        return cache[currentAmount]
     }
 }
