@@ -11,6 +11,31 @@ import kotlin.math.sign
 
 class CoinChange2 {
 
+    // brute force time O(2^(amount+number of coins)) / space O(amount + num of coins)
+    fun change1(amount: Int, coins: IntArray): Int {
+        return brute(0, amount, coins)
+    }
+
+    private fun brute(current: Int, amount: Int, coins: IntArray): Int {
+        if (amount == 0) {
+            return 1
+        }
+
+        if (current >= coins.size) {
+            return 0
+        }
+
+        val currentCoin = coins[current]
+        var c1 = 0
+
+        if ((amount - currentCoin) >= 0)
+            c1 = brute(current, amount - currentCoin, coins)
+
+        val c2 = brute(current+1, amount, coins)
+
+        return c1 + c2
+    }
+
     // bottom up time O(n * amount) / space O(amount)
     fun change(amount: Int, coins: IntArray): Int {
         val cache = IntArray(amount+1)
