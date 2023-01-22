@@ -9,6 +9,10 @@ import kotlin.math.sign
  * The answer is guaranteed to fit into a signed 32-bit integer.
  */
 
+fun main() {
+    val test = CoinChange2().change2(5, intArrayOf(1, 2, 5))
+}
+
 class CoinChange2 {
 
     // brute force time O(2^(amount+number of coins)) / space O(amount + num of coins)
@@ -36,7 +40,7 @@ class CoinChange2 {
         return c1 + c2
     }
 
-    // top down 2D time O(n * amount) / space O(amount)
+    // top down 2D time O(n * amount) / space O(n * amount)
     private lateinit var cache: Array<IntArray>
 
     fun change2(amount: Int, coins: IntArray): Int {
@@ -52,11 +56,11 @@ class CoinChange2 {
             return 0
 
         if (cache[currentAmount][currentCoin] == -1) {
-            val currentCoin = coins[currentCoin]
+            val currentCoinValue = coins[currentCoin]
             var c1 = 0
 
-            if ((currentAmount - currentCoin) >= 0)
-                c1 = dp(currentCoin, currentAmount - currentCoin, coins)
+            if ((currentAmount - currentCoinValue) >= 0)
+                c1 = dp(currentCoin, currentAmount - currentCoinValue, coins)
 
             val c2 = dp(currentCoin+1, currentAmount, coins)
 
@@ -66,8 +70,21 @@ class CoinChange2 {
         return cache[currentAmount][currentCoin]
     }
 
+    // bottom up 2D time O(n * amount) / space O(amount)
+    fun change3(amount: Int, coins: IntArray): Int {
+        val cache = Array(coins.size) { IntArray(amount+1) { 0 } }
+
+
+        coins.forEach { currentCoin ->
+            for (currentAmount in currentCoin until amount+1) {
+                cache[currentAmount] += cache[currentAmount - currentCoin]
+            }
+        }
+        return cache[amount]
+    }
+
     // bottom up time O(n * amount) / space O(amount)
-    fun change(amount: Int, coins: IntArray): Int {
+    fun change4(amount: Int, coins: IntArray): Int {
         val cache = IntArray(amount+1)
         cache[0] = 1
 
