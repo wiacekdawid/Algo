@@ -70,7 +70,7 @@ class CoinChange2 {
         return cache[currentAmount][currentCoin]
     }
 
-    // bottom up 2D time O(n * amount) / space O(amount)
+    // bottom up 2D time O(n * amount) / space O(n * amount)
     fun change3(amount: Int, coins: IntArray): Int {
         val cache = Array(coins.size) { IntArray(amount+1) { 0 } }
 
@@ -80,7 +80,7 @@ class CoinChange2 {
                 cache[currentAmount] += cache[currentAmount - currentCoin]
             }
         }
-        return cache[amount]
+        return cache[coins.size-1][amount]
     }
 
     // bottom up time O(n * amount) / space O(amount)
