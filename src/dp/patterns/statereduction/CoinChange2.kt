@@ -74,12 +74,30 @@ class CoinChange2 {
     fun change3(amount: Int, coins: IntArray): Int {
         val cache = Array(coins.size) { IntArray(amount+1) { 0 } }
 
+        for (i in coins.indices)
+            cache[i][0] = 1
 
-        coins.forEach { currentCoin ->
-            for (currentAmount in currentCoin until amount+1) {
-                cache[currentAmount] += cache[currentAmount - currentCoin]
+        val firstCoin = coins.first()
+        for (currentAmount in 0 until amount+1) {
+            if (currentAmount % firstCoin == 0) {
+                cache[0][currentAmount] = 1
             }
         }
+
+        for (currentCoinIndex in 1 until coins.size) {
+            val currentCoin = coins[currentCoinIndex]
+
+            for (currentAmount in 1 until amount+1) {
+                if (currentAmount - currentCoin >= 0) {
+                    cache[currentCoinIndex][currentAmount] =
+                        cache[currentCoinIndex][currentAmount-currentCoin] + cache[currentCoinIndex-1][currentAmount]
+                } else {
+                    cache[currentCoinIndex][currentAmount] =
+                        cache[currentCoinIndex-1][currentAmount]
+                }
+            }
+        }
+
         return cache[coins.size-1][amount]
     }
 
