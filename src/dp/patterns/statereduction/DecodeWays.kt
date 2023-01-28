@@ -21,38 +21,34 @@ fun main() {
     val test1 = test
 }
 class DecodeWays {
-    // top down
+    // top down - time / space O(N)
     private lateinit var cache: IntArray
     fun numDecodings(s: String): Int {
         cache = IntArray(s.length+1) { -1 }
-        return dp(s, s.length)
+        return dp(s, 0)
     }
 
     private fun dp(s: String, index: Int): Int {
-        if (index <= 0) {
+        if (index >= s.length) {
+            return 1
+        }
+
+        if (s[index] == '0') {
             return 0
         }
-        if (cache[index] == -1) {
-            if (index == 1) {
-                cache[1] = if (isInDict(s.substring(0, 1))) 1 else -1
-            } else {
-                val takeTwo = isInDict(s.substring(index - 2, index))
-                val takeOne = isInDict(s.substring(index - 1, index))
-                if (takeOne || takeTwo) {
-                    val goOne = if (takeOne) { dp(s, index-1) } else 0
-                    val goTwo = if (takeTwo) { dp(s, index-2) } else 0
 
-                    if (goOne < 0 && goTwo < 0) {
-                        cache[index] = -2
-                    } else {
-                        cache[index] = if (goOne > 0 && goTwo > 0) { 1 + goOne + goTwo } else { goOne + goTwo}
-                    }
-                }
+        if (index >= s.length-1) {
+            return 1
+        }
+
+        if (cache[index] == -1) {
+            var result = dp(s, index + 1)
+            if (s.substring(index, index + 2).toInt() <= 26) {
+                result += dp(s, index + 2)
             }
+            cache[index] = result
         }
 
         return cache[index]
     }
-
-    private fun isInDict(s: String): Boolean = s.toInt() in 1..26
 }
