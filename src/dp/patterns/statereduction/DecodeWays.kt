@@ -17,7 +17,7 @@ package dp.patterns.statereduction
  */
 
 fun main() {
-    val test = DecodeWays().numDecodings("12")
+    val test = DecodeWays().numDecodings2("12")
     val test1 = test
 }
 class DecodeWays {
@@ -50,5 +50,25 @@ class DecodeWays {
         }
 
         return cache[index]
+    }
+
+    // bottom up - time/space O(N)
+    fun numDecodings2(s: String): Int {
+        val cache = IntArray(s.length+1) { 0 }
+
+        cache[0] = 1
+        cache[1] = if (s[0] == '0') 0 else 1
+
+        for (index in 2 until cache.size) {
+            if (s[index-1] != '0') {
+                cache[index] = cache[index-1]
+            }
+
+            val twoDigit = s.substring(index-2, index).toInt()
+            if (twoDigit in 10..26) {
+                cache[index] += cache[index-2]
+            }
+        }
+        return cache[s.length]
     }
 }
