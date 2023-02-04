@@ -6,8 +6,22 @@ package dp.patterns.kadanes
  * Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.
  */
 
+/**
+ * time O(n) , space O(1) the best way to understand it is to draw a graph of prices and see peaks
+ */
 class BestTimeToBuyAndSellStock {
     fun maxProfit(prices: IntArray): Int {
+        var maxProfit = 0
+        var currentMinPrice = Integer.MAX_VALUE
 
+        prices.forEach {
+            if (it < currentMinPrice) {
+                currentMinPrice = it
+            } else if ((it - currentMinPrice) > maxProfit) {
+                maxProfit = it - currentMinPrice
+            }
+        }
+
+        return maxProfit
     }
 }
