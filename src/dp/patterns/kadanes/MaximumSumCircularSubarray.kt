@@ -36,6 +36,7 @@ class MaximumSumCircularSubarray {
                 maxSum = currentSum.coerceAtLeast(maxSum)
             }
         }
+
         return maxSum
     }
 }
