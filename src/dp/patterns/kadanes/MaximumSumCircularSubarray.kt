@@ -17,6 +17,7 @@ class MaximumSumCircularSubarray {
     fun maxSubarraySumCircular(nums: IntArray): Int {
         var maxSum = nums.first()
         var currentSum = nums.first()
+
         var currentNumOfElements = 0
 
         for (i in 0 until 2) {
