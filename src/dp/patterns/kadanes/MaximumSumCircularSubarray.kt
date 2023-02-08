@@ -13,6 +13,7 @@ fun main() {
     val test1 = test
 }
 
+// Time O(n), space O(1)
 class MaximumSumCircularSubarray {
     fun maxSubarraySumCircular(nums: IntArray): Int {
         var maxSum = nums.first()
