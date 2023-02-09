@@ -16,29 +16,6 @@ fun main() {
 // Time O(n), space O(1)
 class MaximumSumCircularSubarray {
     fun maxSubarraySumCircular(nums: IntArray): Int {
-        var maxSum = nums.first()
-        var currentSum = nums.first()
 
-        var currentNumOfElements = 0
-
-        for (i in 0 until 2) {
-            nums.forEachIndexed { index, value ->
-                if (currentNumOfElements >= nums.size-1 || (index == 0 && i == 0)) {
-                    currentNumOfElements = 1
-                    currentSum = value
-                } else {
-                    if ((currentSum + value) < value) {
-                        currentSum = value
-                        currentNumOfElements = 1
-                    } else {
-                        currentSum += value
-                        currentNumOfElements++
-                    }
-                }
-                maxSum = currentSum.coerceAtLeast(maxSum)
-            }
-        }
-
-        return maxSum
     }
 }
