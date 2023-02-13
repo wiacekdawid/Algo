@@ -23,8 +23,8 @@ class MaximumSumCircularSubarray {
         var currMax = 0
         nums.forEach {
             currMax = currMax.coerceAtLeast(0) + it
-            maxSum = maxSum.coerceAtLeast(currMin)
-            currMin = currMin.coerceAtMost(0)
+            maxSum = maxSum.coerceAtLeast(currMax)
+            currMin = currMin.coerceAtMost(0) + it
             minSum = minSum.coerceAtMost(currMin)
             totalSum += it
         }
