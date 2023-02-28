@@ -29,4 +29,32 @@ class UniquePaths {
         }
         return dp[m-1][n-1]
     }
+
+    /**
+     * top down space/time complexity O(m*x)
+     */
+    private lateinit var cache: Array<IntArray>
+    fun uniquePaths2(m: Int, n: Int): Int {
+        cache = Array(size = m) { IntArray(size = n) { -1 } }
+
+        return dp(m-1, n-1)
+    }
+
+    private fun dp(row: Int, column: Int): Int {
+        if (row == 0 && column == 0) {
+            return 1
+        }
+
+        if (cache[row][column] != -1) {
+            val rowPart = if (row > 0) {
+                dp(row-1, column)
+            } else 0
+            val columnPart = if (column > 0) {
+                dp(row, column-1)
+            } else 0
+            cache[row][column] = rowPart + columnPart
+        }
+
+        return cache[row][column]
+    }
 }
