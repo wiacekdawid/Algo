@@ -8,6 +8,7 @@ package dp.patterns.pathsinmatrix
  * Given the two integers m and n, return the number of possible unique paths that the robot can take to reach the bottom-right corner.
  * The test cases are generated so that the answer will be less than or equal to 2 * 109.
  */
+
 class UniquePaths {
 
     /**
@@ -45,7 +46,7 @@ class UniquePaths {
             return 1
         }
 
-        if (cache[row][column] != -1) {
+        if (cache[row][column] == -1) {
             val rowPart = if (row > 0) {
                 dp(row-1, column)
             } else 0
