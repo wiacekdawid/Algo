@@ -33,4 +33,32 @@ class MinimumPathSum {
         }
         return dp[grid.size-1][grid.first().size-1]
     }
+
+    /**
+     * top down space/time complexity O(m*x)
+     */
+    private lateinit var cache: Array<IntArray>
+
+    fun minPathSum2(grid: Array<IntArray>): Int {
+        cache = Array(size = grid.size) { IntArray(size = grid.first().size) { -1 } }
+        return dp(grid.size-1, grid.first().size-1, grid)
+    }
+
+    private fun dp(currentRow: Int, currentColumn: Int, grid: Array<IntArray>): Int {
+        if (currentRow == 0 && currentColumn == 0) {
+            return grid[0][0]
+        }
+
+        if (cache[currentRow][currentColumn] == -1) {
+            val rowValue = if (currentRow > 0) {
+                dp(currentRow-1, currentColumn, grid)
+            } else Int.MAX_VALUE
+            val columnValue = if (currentColumn > 0) {
+                dp(currentRow, currentColumn-1, grid)
+            } else Int.MAX_VALUE
+            cache[currentRow][currentColumn] = grid[currentRow][currentColumn] + rowValue.coerceAtMost(columnValue)
+        }
+
+        return cache[currentRow][currentColumn]
+    }
 }
