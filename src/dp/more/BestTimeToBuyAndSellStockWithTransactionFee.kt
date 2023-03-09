@@ -33,4 +33,23 @@ class BestTimeToBuyAndSellStockWithTransactionFee {
 
         return memo[currentPrice][holdingStock]
     }
+
+    // bottom up - time and space - O(n)
+    fun maxProfit2(prices: IntArray, fee: Int): Int {
+        var memo = Array(prices.size+1) { IntArray(2) { 0 } }
+
+        for (currentPriceIndex in prices.size-1 downTo 0) {
+            for (holdingStock in 0 until 2) {
+                val doNothing = memo[currentPriceIndex+1][holdingStock]
+
+                val doSomething = if (holdingStock == 0) {
+                    memo[currentPriceIndex+1][holdingStock] - prices[currentPriceIndex]
+                } else {
+                    memo[currentPriceIndex+1][holdingStock] + prices[currentPriceIndex] - fee
+                }
+                memo[currentPriceIndex][holdingStock] = doNothing.coerceAtLeast(doSomething)
+            }
+        }
+        return memo[0][0]
+    }
 }
