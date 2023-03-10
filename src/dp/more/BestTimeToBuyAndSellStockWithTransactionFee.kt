@@ -43,9 +43,9 @@ class BestTimeToBuyAndSellStockWithTransactionFee {
                 val doNothing = memo[currentPriceIndex+1][holdingStock]
 
                 val doSomething = if (holdingStock == 0) {
-                    memo[currentPriceIndex+1][holdingStock] - prices[currentPriceIndex]
+                    memo[currentPriceIndex+1][1] - prices[currentPriceIndex]
                 } else {
-                    memo[currentPriceIndex+1][holdingStock] + prices[currentPriceIndex] - fee
+                    memo[currentPriceIndex+1][0] + prices[currentPriceIndex] - fee
                 }
                 memo[currentPriceIndex][holdingStock] = doNothing.coerceAtLeast(doSomething)
             }
