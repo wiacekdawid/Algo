@@ -70,11 +70,11 @@ class PaintHouse {
                 for (i in 0 until 3) {
                     val validIndexed = intArrayOf(0, 1, 2).filter { it != i }
                     cachePaint[currentHouse][i] = costs[currentHouse][i] +
-                            cachePaint[currentHouse-1][validIndexed[0]]
-                                .coerceAtMost(cachePaint[currentHouse-1][validIndexed[1]])
+                            cachePaint[currentHouse - 1][validIndexed[0]]
+                                .coerceAtMost(cachePaint[currentHouse - 1][validIndexed[1]])
                 }
             }
-            return cachePaint[costs.size-1].min() ?: 0
+            return cachePaint[costs.size - 1].min() ?: 0
         } else if (costs.isNotEmpty()) {
             costs.first().min() ?: 0
         } else {
