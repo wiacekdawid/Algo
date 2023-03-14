@@ -9,6 +9,10 @@ package dp.more
  * Return the minimum cost to paint all houses.
  */
 
+fun main() {
+    val test = PaintHouse2().minCostII2(arrayOf(intArrayOf(1,5,3), intArrayOf(2,9,4)))
+}
+
 class PaintHouse2 {
     /**
      * top down with memoizaiton time O(n kpow2)/space complexity O(nk)
@@ -49,5 +53,33 @@ class PaintHouse2 {
         }
 
         return cache[currentHouse][currentlyUsedColor]
+    }
+
+    /**
+     * bottom up - time O(n kpow2)/space complexity O(nk)
+     */
+
+    fun minCostII2(costs: Array<IntArray>): Int {
+        return if (costs.size > 1) {
+            val cachePaint = Array(costs.size + 1) { IntArray(costs.first().size) { -1 } }
+            for (currentColor in costs.first().indices) {
+                cachePaint[0][currentColor] = costs[0][currentColor]
+            }
+            for (currentHouse in 1 until costs.size) {
+                for (i in costs.first().indices) {
+                    val indexesToCheck = costs.first().indices.filter { it != i }
+                    var smallestOutput = Int.MAX_VALUE
+                    for (currentColor in indexesToCheck) {
+                        smallestOutput = smallestOutput.coerceAtMost(cachePaint[currentHouse - 1][currentColor])
+                    }
+                    cachePaint[currentHouse][i] = costs[currentHouse][i] + smallestOutput
+                }
+            }
+            return cachePaint[costs.size - 1].min() ?: 0
+        } else if (costs.isNotEmpty()) {
+            costs.first().min() ?: 0
+        } else {
+            0
+        }
     }
 }
