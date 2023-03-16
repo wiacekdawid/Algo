@@ -23,7 +23,7 @@ class PaintHouse3 {
     private var target = 0
 
     fun minCost(houses: IntArray, cost: Array<IntArray>, m: Int, n: Int, target: Int): Int {
-        cache = Array(m + 1) { Array(n) { IntArray(target) { -1 } } }
+        cache = Array(m + 1) { Array(n) { IntArray(target+1) { -1 } } }
         this.houses = houses
         this.cost = cost
         this.m = m
@@ -61,14 +61,26 @@ class PaintHouse3 {
                 for (currentColor in 0 until n) {
                     if (remainingTarget > 0) {
                         smallestOutput = if (currentColor != currentlyUsedColor) {
-                            smallestOutput.coerceAtMost(dp(currentHouse - 1, currentColor, remainingTarget - 1))
+                            val forCurrentColor = dp(currentHouse - 1, currentColor, remainingTarget - 1)
+                            if (forCurrentColor != -1)
+                                smallestOutput.coerceAtMost(dp(currentHouse - 1, currentColor, remainingTarget - 1))
+                            else
+                                smallestOutput
                         } else {
-                            smallestOutput.coerceAtMost(dp(currentHouse - 1, currentColor, remainingTarget))
+                            val forCurrentColor = dp(currentHouse - 1, currentColor, remainingTarget)
+                            if (forCurrentColor != -1)
+                                smallestOutput.coerceAtMost(forCurrentColor)
+                            else
+                                smallestOutput
                         }
                     } else {
                         if (currentColor != currentlyUsedColor) {
-                            smallestOutput =
-                                smallestOutput.coerceAtMost(dp(currentHouse - 1, currentColor, remainingTarget))
+                            val forCurrentColor = dp(currentHouse - 1, currentColor, remainingTarget)
+                            if (forCurrentColor != -1)
+                                smallestOutput =
+                                    smallestOutput.coerceAtMost(forCurrentColor)
+                            else
+                                smallestOutput
                         }
                     }
                 }
