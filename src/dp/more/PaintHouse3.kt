@@ -11,6 +11,16 @@ package dp.more
  * Return the minimum cost of painting all the remaining houses in such a way that there are exactly target neighborhoods.
  * If it is not possible, return -1.
  */
+
+fun main() {
+    val test = PaintHouse3().minCost(
+        houses = intArrayOf(0,0,0,0,0),
+        cost = arrayOf(intArrayOf(1,10),intArrayOf(10,1),intArrayOf(10,1),intArrayOf(1,10),intArrayOf(5,1)),
+        m = 5,
+        n = 2,
+        target = 3
+    )
+}
 class PaintHouse3 {
     /**
      * top down with memoizaiton time O(n kpow2)/space complexity O(nk)
@@ -33,6 +43,7 @@ class PaintHouse3 {
     }
 
     private fun dp(currentHouse: Int, currentlyUsedColor: Int, remainingTarget: Int): Int {
+        println("current = $currentHouse $currentlyUsedColor $remainingTarget")
         if (currentHouse == 0) {
             return if (houses[0] == 0 && remainingTarget == 0) {
                 0
@@ -87,7 +98,7 @@ class PaintHouse3 {
                 cache[currentHouse][currentlyUsedColor][remainingTarget] + smallestOutput
             }
         }
-
+        println("return = " + cache[currentHouse][currentlyUsedColor][remainingTarget])
         return cache[currentHouse][currentlyUsedColor][remainingTarget]
     }
 }
