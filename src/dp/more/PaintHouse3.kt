@@ -33,26 +33,35 @@ class PaintHouse3 {
     private var target = 0
 
     fun minCost(houses: IntArray, cost: Array<IntArray>, m: Int, n: Int, target: Int): Int {
-        cache = Array(m + 1) { Array(n) { IntArray(target+1) { -1 } } }
+        cache = Array(m + 1) { Array(n+1) { IntArray(target+1) { -1 } } }
         this.houses = houses
         this.cost = cost
         this.m = m
         this.n = n
         this.target = target
-        return dp(m, 0, target)
+        return dp(m, n, target)
     }
 
     private fun dp(currentHouse: Int, currentlyUsedColor: Int, remainingTarget: Int): Int {
-        println("current = $currentHouse $currentlyUsedColor $remainingTarget")
         if (currentHouse == 0) {
-            return if (houses[0] == 0 && remainingTarget == 0) {
-                0
+            return if (remainingTarget == 0) {
+                if (houses[currentHouse] == 0) {
+                    cost[0][currentlyUsedColor]
+                } else if (houses[currentHouse] == currentlyUsedColor+1) {
+                    0
+                } else {
+                    -1
+                }
             } else if (remainingTarget > 1) {
                 -1
-            } else if (houses[0] != 0 && remainingTarget == 1) {
-                cost[0].filterIndexed { index, _ -> index != currentlyUsedColor  }.min() ?: -1
-            } else if (houses[0] != 0 && remainingTarget == 0) {
-                cost[0][currentlyUsedColor]
+            } else if (remainingTarget == 1) {
+                if (houses[currentHouse] == 0) {
+                    cost[0].filterIndexed { index, _ -> index != currentlyUsedColor  }.min() ?: -1
+                } else if (houses[currentHouse] == currentlyUsedColor+1) {
+                    -1
+                } else {
+                    0
+                }
             } else {
                 -1
             }
@@ -63,42 +72,54 @@ class PaintHouse3 {
                 var smallestOutput = Int.MAX_VALUE
                 for (currentColor in 0 until n) {
                     val forCurrentColor = dp(currentHouse - 1, currentColor, target-1)
-                    if (forCurrentColor != -1)
+                    if (forCurrentColor != -1) {
+                        println("[$currentHouse][$currentlyUsedColor][$remainingTarget] forCurrentColor = ${forCurrentColor}")
                         smallestOutput = smallestOutput.coerceAtMost(forCurrentColor)
+                    }
                 }
                 smallestOutput
             } else {
                 var smallestOutput = Int.MAX_VALUE
-                for (currentColor in 0 until n) {
-                    if (remainingTarget > 0) {
-                        smallestOutput = if (currentColor != currentlyUsedColor) {
-                            val forCurrentColor = dp(currentHouse - 1, currentColor, remainingTarget - 1)
-                            if (forCurrentColor != -1)
-                                smallestOutput.coerceAtMost(dp(currentHouse - 1, currentColor, remainingTarget - 1))
-                            else
-                                smallestOutput
-                        } else {
-                            val forCurrentColor = dp(currentHouse - 1, currentColor, remainingTarget)
-                            if (forCurrentColor != -1)
-                                smallestOutput.coerceAtMost(forCurrentColor)
-                            else
-                                smallestOutput
-                        }
-                    } else {
-                        if (currentColor != currentlyUsedColor) {
-                            val forCurrentColor = dp(currentHouse - 1, currentColor, remainingTarget)
-                            if (forCurrentColor != -1)
-                                smallestOutput =
+                println("smallestOutput = ${smallestOutput}")
+                if (houses[currentHouse] != 0 && houses[currentHouse] != currentlyUsedColor+1) {
+                    smallestOutput = -1
+                } else {
+                    for (currentColor in 0 until n) {
+                        if (remainingTarget > 0) {
+                            smallestOutput = if (currentColor != currentlyUsedColor) {
+                                val forCurrentColor = dp(currentHouse - 1, currentColor, remainingTarget - 1)
+                                if (forCurrentColor != -1)
                                     smallestOutput.coerceAtMost(forCurrentColor)
-                            else
-                                smallestOutput
+                                else
+                                    smallestOutput
+                            } else {
+                                val forCurrentColor = dp(currentHouse - 1, currentColor, remainingTarget)
+                                if (forCurrentColor != -1)
+                                    smallestOutput.coerceAtMost(forCurrentColor)
+                                else
+                                    smallestOutput
+                            }
+                        } else {
+                            if (currentColor == currentlyUsedColor) {
+                                val forCurrentColor = dp(currentHouse - 1, currentColor, remainingTarget)
+                                if (forCurrentColor != -1)
+                                    smallestOutput =
+                                        smallestOutput.coerceAtMost(forCurrentColor)
+                                else
+                                    smallestOutput
+                            }
                         }
                     }
                 }
-                cache[currentHouse][currentlyUsedColor][remainingTarget] + smallestOutput
+                println("smallestOutput for $currentHouse = ${smallestOutput}")
+                if (smallestOutput != Int.MAX_VALUE)
+                (if (houses[currentHouse] == 0) cost[currentHouse][currentlyUsedColor] else 0) + smallestOutput
+                else
+                    smallestOutput
             }
         }
-        println("return = " + cache[currentHouse][currentlyUsedColor][remainingTarget])
+
+        println("[$currentHouse][$currentlyUsedColor][$remainingTarget] = ${cache[currentHouse][currentlyUsedColor][remainingTarget]}")
         return cache[currentHouse][currentlyUsedColor][remainingTarget]
     }
 }
