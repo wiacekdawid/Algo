@@ -23,103 +23,52 @@ fun main() {
 }
 class PaintHouse3 {
     /**
-     * top down with memoizaiton time O(n kpow2)/space complexity O(nk)
+     * top down with memoizaiton time/space complexity O(m*n*t)
      */
     private lateinit var cache: Array<Array<IntArray>>
-    private lateinit var houses: IntArray
-    private lateinit var cost: Array<IntArray>
-    private var m = 0
-    private var n = 0
-    private var target = 0
+    private val MAX_COST = 1000001
 
     fun minCost(houses: IntArray, cost: Array<IntArray>, m: Int, n: Int, target: Int): Int {
         cache = Array(m + 1) { Array(n+1) { IntArray(target+1) { -1 } } }
-        this.houses = houses
-        this.cost = cost
-        this.m = m
-        this.n = n
-        this.target = target
-        return dp(m, n, target)
+        val minCost = dp(houses, cost, target, n, 0, 0, 0)
+        if (minCost == MAX_COST)
+            return -1
+        return minCost
     }
 
-    private fun dp(currentHouse: Int, currentlyUsedColor: Int, remainingTarget: Int): Int {
-        if (currentHouse == 0) {
-            return if (remainingTarget == 0) {
-                if (houses[currentHouse] == 0) {
-                    cost[0][currentlyUsedColor]
-                } else if (houses[currentHouse] == currentlyUsedColor+1) {
-                    0
-                } else {
-                    -1
-                }
-            } else if (remainingTarget > 1) {
-                -1
-            } else if (remainingTarget == 1) {
-                if (houses[currentHouse] == 0) {
-                    cost[0].filterIndexed { index, _ -> index != currentlyUsedColor  }.min() ?: -1
-                } else if (houses[currentHouse] == currentlyUsedColor+1) {
-                    -1
-                } else {
-                    0
-                }
-            } else {
-                -1
-            }
+    private fun dp(houses: IntArray,
+                   cost: Array<IntArray>,
+                   target: Int,
+                   totalColors: Int,
+                   currentHouse: Int,
+                   previousHouseColor: Int,
+                   neighborhoodCount: Int): Int {
+        if (currentHouse == houses.size) {
+            return if (neighborhoodCount == target) 0 else MAX_COST
         }
 
-        if (cache[currentHouse][currentlyUsedColor][remainingTarget] == -1) {
-            cache[currentHouse][currentlyUsedColor][remainingTarget] = if (currentHouse == m) {
-                var smallestOutput = Int.MAX_VALUE
-                for (currentColor in 0 until n) {
-                    val forCurrentColor = dp(currentHouse - 1, currentColor, target-1)
-                    if (forCurrentColor != -1) {
-                        println("[$currentHouse][$currentlyUsedColor][$remainingTarget] forCurrentColor = ${forCurrentColor}")
-                        smallestOutput = smallestOutput.coerceAtMost(forCurrentColor)
-                    }
-                }
-                smallestOutput
-            } else {
-                var smallestOutput = Int.MAX_VALUE
-                println("smallestOutput = ${smallestOutput}")
-                if (houses[currentHouse] != 0 && houses[currentHouse] != currentlyUsedColor+1) {
-                    smallestOutput = -1
-                } else {
-                    for (currentColor in 0 until n) {
-                        if (remainingTarget > 0) {
-                            smallestOutput = if (currentColor != currentlyUsedColor) {
-                                val forCurrentColor = dp(currentHouse - 1, currentColor, remainingTarget - 1)
-                                if (forCurrentColor != -1)
-                                    smallestOutput.coerceAtMost(forCurrentColor)
-                                else
-                                    smallestOutput
-                            } else {
-                                val forCurrentColor = dp(currentHouse - 1, currentColor, remainingTarget)
-                                if (forCurrentColor != -1)
-                                    smallestOutput.coerceAtMost(forCurrentColor)
-                                else
-                                    smallestOutput
-                            }
-                        } else {
-                            if (currentColor == currentlyUsedColor) {
-                                val forCurrentColor = dp(currentHouse - 1, currentColor, remainingTarget)
-                                if (forCurrentColor != -1)
-                                    smallestOutput =
-                                        smallestOutput.coerceAtMost(forCurrentColor)
-                                else
-                                    smallestOutput
-                            }
-                        }
-                    }
-                }
-                println("smallestOutput for $currentHouse = ${smallestOutput}")
-                if (smallestOutput != Int.MAX_VALUE)
-                (if (houses[currentHouse] == 0) cost[currentHouse][currentlyUsedColor] else 0) + smallestOutput
-                else
-                    smallestOutput
-            }
+        if (neighborhoodCount > target) {
+            return MAX_COST
         }
 
-        println("[$currentHouse][$currentlyUsedColor][$remainingTarget] = ${cache[currentHouse][currentlyUsedColor][remainingTarget]}")
-        return cache[currentHouse][currentlyUsedColor][remainingTarget]
+        if (cache[currentHouse][previousHouseColor][neighborhoodCount] == -1) {
+            cache[currentHouse][previousHouseColor][neighborhoodCount] =
+                if (houses[currentHouse] != 0) {
+                    val nextNeighborhoodCount = neighborhoodCount +
+                            if (houses[currentHouse] != previousHouseColor) 1 else 0
+                    dp(houses, cost, target, totalColors, currentHouse+1, houses[currentHouse], nextNeighborhoodCount)
+                } else {
+                    var minCost = MAX_COST
+                    for (nextColor in 1 until totalColors+1) {
+                        val nextNeighborhoodCount = neighborhoodCount + if (nextColor != previousHouseColor) 1 else 0
+                        val currentCost = cost[currentHouse][nextColor-1] +
+                                dp(houses, cost, target, totalColors, currentHouse+1, nextColor, nextNeighborhoodCount)
+                        minCost = minCost.coerceAtMost(currentCost)
+                    }
+                    minCost
+                }
+        }
+
+        return cache[currentHouse][previousHouseColor][neighborhoodCount]
     }
 }
