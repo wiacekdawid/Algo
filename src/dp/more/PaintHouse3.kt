@@ -71,4 +71,14 @@ class PaintHouse3 {
 
         return cache[currentHouse][previousHouseColor][neighborhoodCount]
     }
+
+    /**
+     * bottom up time/space complexity O(m*n*t)
+     */
+    private val maxCost = 1000001
+
+    fun minCost2(houses: IntArray, cost: Array<IntArray>, m: Int, n: Int, target: Int): Int {
+        val cache: Array<Array<IntArray>>
+        return 0
+    }
 }
