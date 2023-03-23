@@ -78,6 +78,7 @@ class PaintHouse3 {
     private val maxCost = 1000001
 
     fun minCost2(houses: IntArray, cost: Array<IntArray>, m: Int, n: Int, target: Int): Int {
+
         val cache: Array<Array<IntArray>>
 
         return 0
