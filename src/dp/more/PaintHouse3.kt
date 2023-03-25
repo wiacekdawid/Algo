@@ -79,6 +79,8 @@ class PaintHouse3 {
 
     fun minCost2(houses: IntArray, cost: Array<IntArray>, m: Int, n: Int, target: Int): Int {
 
+        cache = Array(m + 1) { Array(n+1) { IntArray(target+1) { -1 } } }
+
         for (currentHouse in houses.size downTo 0) {
 
         }
