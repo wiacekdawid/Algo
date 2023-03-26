@@ -13,17 +13,17 @@ package dp.more
  */
 
 fun main() {
-    val test = PaintHouse3().minCost(
-        houses = intArrayOf(0,0,0,0,0),
-        cost = arrayOf(intArrayOf(1,10),intArrayOf(10,1),intArrayOf(10,1),intArrayOf(1,10),intArrayOf(5,1)),
-        m = 5,
-        n = 2,
+    val test = PaintHouse3().minCost2(
+        houses = intArrayOf(3,1,2,3),
+        cost = arrayOf(intArrayOf(1,1,1),intArrayOf(1,1,1),intArrayOf(1,1,1),intArrayOf(1,1,1)),
+        m = 4,
+        n = 3,
         target = 3
     )
 }
 class PaintHouse3 {
     /**
-     * top down with memoizaiton time/space complexity O(m*n*t)
+     * top down with memoizaiton time O(m*(n pow 2)*t) / space complexity O(m*n*t)
      */
     private lateinit var cache: Array<Array<IntArray>>
     private val MAX_COST = 1000001
@@ -73,18 +73,52 @@ class PaintHouse3 {
     }
 
     /**
-     * bottom up time/space complexity O(m*n*t)
+     * bottom up time O(m*(n pow 2)*t) /space complexity O(m*n*t)
      */
     private val maxCost = 1000001
 
     fun minCost2(houses: IntArray, cost: Array<IntArray>, m: Int, n: Int, target: Int): Int {
 
-        cache = Array(m + 1) { Array(n+1) { IntArray(target+1) { -1 } } }
+        val memo = Array(m) { Array(target+1) { IntArray(n) { maxCost } } }
 
-        for (currentHouse in houses.size downTo 0) {
-
+        for (colours in 1 until n+1) {
+            if (houses[0] == colours) {
+                memo[0][1][colours-1] = 0
+            } else if (houses[0] == 0) {
+                memo[0][1][colours-1] = cost[0][colours-1]
+            }
         }
 
-        return 0
+        for (currentHouse in 1 until m) {
+            for (currentNeighbourhood in 1 until target.coerceAtMost(currentHouse+1)+1) {
+                for (currentColour in 1 until n+1) {
+                    if (houses[currentHouse] != 0 && currentColour != houses[currentHouse]) {
+                        continue
+                    }
+
+                    var currentCost = maxCost
+
+                    for (previousColour in 1 until n+1) {
+                        if (previousColour != currentColour) {
+                            // its different colour so we have to decrement neighbourhood count
+                            currentCost = currentCost.coerceAtMost(memo[currentHouse-1][currentNeighbourhood-1][previousColour-1])
+                        } else {
+                            currentCost = currentCost.coerceAtMost(memo[currentHouse-1][currentNeighbourhood][previousColour-1])
+                        }
+                    }
+
+                    val costToPaint = if (houses[currentHouse] == 0) cost[currentHouse][currentColour-1] else 0
+
+                    memo[currentHouse][currentNeighbourhood][currentColour-1] = costToPaint + currentCost
+                }
+            }
+        }
+
+        var minCost = maxCost
+
+        for (currentColour in 1 until n+1) {
+            minCost = minCost.coerceAtMost(memo[m-1][target][currentColour-1])
+        }
+        return if (minCost == maxCost) -1 else minCost
     }
 }
