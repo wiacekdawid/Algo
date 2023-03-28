@@ -10,8 +10,9 @@ package dp.more
  * Each vowel 'u' may only be followed by an 'a'.
  * Since the answer may be too large, return it modulo 10^9 + 7.
  */
+
 class CountVowelsPermutation {
     fun countVowelPermutation(n: Int): Int {
-
+        return 0
     }
 }
