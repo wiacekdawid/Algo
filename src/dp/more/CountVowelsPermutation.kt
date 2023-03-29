@@ -12,6 +12,7 @@ package dp.more
  */
 
 class CountVowelsPermutation {
+    lateinit var dp: Aray<Int>
     fun countVowelPermutation(n: Int): Int {
         return 0
     }
