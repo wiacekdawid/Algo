@@ -15,17 +15,17 @@ import kotlin.math.pow
 
 class CountVowelsPermutation {
 
-    // top down space/time
+    // top down space/time O(n)
     lateinit var dp: Array<IntArray>
     private val map = mapOf('a' to 0, 'e' to 1, 'i' to 2, 'o' to 3, 'u' to 4)
-    private val maxValue = 10.0.pow(9.0) + 7
+    private val maxValue = 1000000007
     fun countVowelPermutation(n: Int): Int {
         dp = Array(n+1) { IntArray(map.size+1) { -1 } }
         var result = 0
         map.forEach {
             result += dp(n, it.key)
         }
-        if (result > maxValue || result < 0) return maxValue.toInt()
+        if (result > maxValue || result < 0) return maxValue
         return result
     }
 
@@ -36,21 +36,21 @@ class CountVowelsPermutation {
         if (dp[n][map.getOrDefault(previousVowel, 0)] == -1) {
             dp[n][map.getOrDefault(previousVowel, 0)] = when (previousVowel) {
                 'a' -> {
-                    dp(n-1, 'e')
+                    dp(n-1, 'e') + dp(n-1, 'i') + dp(n-1, 'u')
                 }
                 'e' -> {
                     dp(n-1, 'a') + dp(n-1, 'i')
                 }
                 'i' -> {
-                    dp(n-1, 'a') + dp(n-1, 'e') + dp(n-1, 'o') + dp(n-1, 'u')
+                    dp(n-1, 'e') + dp(n-1, 'o')
                 }
                 'o' -> {
-                    dp(n-1, 'i') + dp(n-1, 'u')
+                    dp(n-1, 'i')
                 }
                 else -> {
-                    dp(n-1, 'a')
+                    dp(n-1, 'i') + dp(n-1, 'o')
                 }
-            }
+            } % maxValue
         }
         return dp[n][map.getOrDefault(previousVowel, 0)]
     }
