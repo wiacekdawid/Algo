@@ -1,7 +1,5 @@
 package dp.more
 
-import kotlin.math.pow
-
 /**
  * Given an integer n, your task is to count how many strings of length n can be formed under the following rules:
  * Each character is a lower case vowel ('a', 'e', 'i', 'o', 'u')
@@ -16,42 +14,46 @@ import kotlin.math.pow
 class CountVowelsPermutation {
 
     // top down space/time O(n)
-    lateinit var dp: Array<IntArray>
-    private val map = mapOf('a' to 0, 'e' to 1, 'i' to 2, 'o' to 3, 'u' to 4)
+    lateinit var memo: Array<LongArray>
     private val maxValue = 1000000007
     fun countVowelPermutation(n: Int): Int {
-        dp = Array(n+1) { IntArray(map.size+1) { -1 } }
-        var result = 0
-        map.forEach {
-            result += dp(n, it.key)
+        memo = Array(n) { LongArray(5) { 0 } }
+        var result: Long = 0
+        for (index in 0 until 5) {
+            result = (result + dp(n-1, index)) % maxValue
         }
-        if (result > maxValue || result < 0) return maxValue
-        return result
+        return result.toInt()
     }
 
-    private fun dp(n: Int, previousVowel: Char): Int {
-        if (n == 1) {
-            return 1
+    private fun dp(n: Int, vowel: Int): Long {
+        if (memo[n][vowel] != 0L) {
+            return memo[n][vowel]
         }
-        if (dp[n][map.getOrDefault(previousVowel, 0)] == -1) {
-            dp[n][map.getOrDefault(previousVowel, 0)] = when (previousVowel) {
-                'a' -> {
-                    dp(n-1, 'e') + dp(n-1, 'i') + dp(n-1, 'u')
+        if (n == 0) {
+            memo[n][vowel] = 1
+        }
+        if (memo[n][vowel] == 0L) {
+             when (vowel) {
+                0 -> {
+                    memo[n][vowel] = (dp(n-1, 1) + dp(n-1, 2) + dp(n-1, 4)) % maxValue
                 }
-                'e' -> {
-                    dp(n-1, 'a') + dp(n-1, 'i')
+                1 -> {
+                    memo[n][vowel] = (dp(n-1, 0) + dp(n-1, 2)) % maxValue
                 }
-                'i' -> {
-                    dp(n-1, 'e') + dp(n-1, 'o')
+                2 -> {
+                    memo[n][vowel] = (dp(n-1, 1) + dp(n-1, 3))% maxValue
                 }
-                'o' -> {
-                    dp(n-1, 'i')
+                3 -> {
+                    memo[n][vowel] = dp(n-1, 2) % maxValue
+                }
+                4 -> {
+                    memo[n][vowel] = (dp(n-1, 2) + dp(n-1, 3))% maxValue
                 }
                 else -> {
-                    dp(n-1, 'i') + dp(n-1, 'o')
+
                 }
-            } % maxValue
+            }
         }
-        return dp[n][map.getOrDefault(previousVowel, 0)]
+        return memo[n][vowel]
     }
 }
