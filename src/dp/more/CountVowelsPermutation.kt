@@ -56,4 +56,11 @@ class CountVowelsPermutation {
         }
         return memo[n][vowel]
     }
+
+    // bottom up space/time O(n)
+    lateinit var memo: Array<LongArray>
+    private val maxValue = 1000000007
+    fun countVowelPermutation2(n: Int): Int {
+        return 0
+    }
 }
