@@ -7,7 +7,22 @@ package `75plan`.level1
  */
 
 class IsSubsequence {
+    // time O(t.length) / space O(1)
     fun isSubsequence(s: String, t: String): Boolean {
+        if (s.length > t.length) {
+            return false
+        }
 
+        var currentIndexInT = 0
+
+        t.forEach {
+            if (currentIndexInT >= s.length)
+                return currentIndexInT == s.length
+            if (s[currentIndexInT] == it) {
+                currentIndexInT++
+            }
+        }
+
+        return currentIndexInT == s.length
     }
 }
