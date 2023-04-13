@@ -7,8 +7,15 @@ package `75plan`.level1
  */
 
 class MiddleOfTheLinkedList {
+    // time O(N), space O(1)
     fun middleNode(head: ListNode?): ListNode? {
-        return head
+        var slowerNode = head
+        var fasterNode = head
+        while (fasterNode?.next != null) {
+            slowerNode = slowerNode?.next
+            fasterNode = fasterNode.next?.next
+        }
+        return slowerNode
     }
 
     class ListNode(var `val`: Int) {
