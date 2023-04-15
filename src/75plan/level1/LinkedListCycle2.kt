@@ -15,6 +15,15 @@ class LinkedListCycle2 {
         return null
     }
 
+    fun detectCycle2(head: ListNode?): ListNode? {
+
+    }
+
+    private fun findIntersection(head: ListNode?): ListNode? {
+        val slow = head
+        val fast = head
+    }
+
     class ListNode(var `val`: Int) {
         var next: ListNode? = null
     }
