@@ -10,4 +10,13 @@ class GreatestCommonDivisorOfStrings {
     fun gcdOfStrings(str1: String, str2: String): String {
         return ""
     }
+
+    private fun gcd(x: Int, y: Int): Int {
+        return if (y == 0) {
+            x
+        } else {
+            gcd(y, x % y)
+        }
+    }
+
 }
