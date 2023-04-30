@@ -7,8 +7,14 @@ package `75plan`.
 
 
 class GreatestCommonDivisorOfStrings {
+    // time / space O(m+n)
     fun gcdOfStrings(str1: String, str2: String): String {
-        return ""
+        if ((str1 + str2) != str2 + str1) {
+            return ""
+        }
+
+        val gcdLength = gcd(str1.length, str2.length)
+        return str1.substring(0, gcdLength)
     }
 
     private fun gcd(x: Int, y: Int): Int {
