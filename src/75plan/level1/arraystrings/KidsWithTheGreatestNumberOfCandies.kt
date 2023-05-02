@@ -8,7 +8,13 @@ package `75plan`.level1.arraystrings
  * Note that multiple kids can have the greatest number of candies.
  */
 class KidsWithTheGreatestNumberOfCandies {
+    // time O(n) / space O(1)
     fun kidsWithCandies(candies: IntArray, extraCandies: Int): List<Boolean> {
-
+        val maxCandies = candies.max() ?: 0
+        val result = mutableListOf<Boolean>()
+        candies.forEach { current ->
+            result.add((current + extraCandies) >= maxCandies)
+        }
+        return result.toList()
     }
 }
