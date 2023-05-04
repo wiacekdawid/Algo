@@ -8,6 +8,10 @@ package `75plan`.level1.arraystrings
  */
 class CanPlaceFlowers {
     fun canPlaceFlowers(flowerbed: IntArray, n: Int): Boolean {
+        var canBePlanted = false
+        flowerbed.forEach {
 
+        }
+        return canBePlanted
     }
 }
