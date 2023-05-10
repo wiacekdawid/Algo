@@ -6,6 +6,7 @@ package `75plan`.level1.arraystrings
  */
 class IncreasingTripletSubsequence {
     fun increasingTriplet(nums: IntArray): Boolean {
-
+        nums.forEachIndexed { index, i ->  }
+        return false
     }
 }
