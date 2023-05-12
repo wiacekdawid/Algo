@@ -11,18 +11,15 @@ fun main() {
 class IncreasingTripletSubsequence {
     // time O(n)/ space O(1)
     fun increasingTriplet(nums: IntArray): Boolean {
-        var smallest = nums.first()
-        var medium = Integer.MIN_VALUE
-        for (i in 1 until nums.size) {
-            if (nums[i] < smallest) {
-                smallest = nums[i]
-                medium = Integer.MIN_VALUE
-            } else if (medium > smallest) {
-                if (nums[i] > medium) {
-                    return true
-                }
-            } else if (nums[i] > smallest) {
-                medium = nums[i]
+        var smallest = Integer.MAX_VALUE
+        var medium = Integer.MAX_VALUE
+        nums.forEach {
+            if (it <= smallest) {
+                smallest = it
+            } else if (it <= medium) {
+                medium = it
+            } else {
+                return true
             }
         }
         return false
