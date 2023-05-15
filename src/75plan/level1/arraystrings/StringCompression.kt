@@ -15,6 +15,7 @@ class StringCompression {
         var result = 0
         var currentChar = ' '
         var currentLength = 0
+        var newArrayPosition = 0
         chars.forEachIndexed { index, c ->
             if (c != currentChar || index == chars.size-1) {
                 if (currentLength == 1) {
