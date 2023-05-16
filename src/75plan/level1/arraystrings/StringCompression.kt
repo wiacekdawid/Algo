@@ -15,9 +15,11 @@ class StringCompression {
         var result = 0
         var currentChar = ' '
         var currentLength = 0
-        var newArrayPosition = 0
+        var newCharArray = mutableListOf<Char>()
         chars.forEachIndexed { index, c ->
             if (c != currentChar || index == chars.size-1) {
+                newCharArray.add(currentChar)
+                newCharArray.add(currentLength.toChar())
                 if (currentLength == 1) {
                     result++
                 } else if (currentLength > 1) {
