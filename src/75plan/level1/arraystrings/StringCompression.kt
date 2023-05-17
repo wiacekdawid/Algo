@@ -34,9 +34,9 @@ class StringCompression {
         return result
     }
 
-    private fun numberOfDigits(n: Int): Int =
-        when (n) {
-            in -9..9 -> 1
-            else -> 1 + numberOfDigits(n / 10)
-        }
+//    private fun numberOfDigits(n: Int): Int =
+//        when (n) {
+//            in -9..9 -> 1
+//            else -> 1 + numberOfDigits(n / 10)
+//        }
 }
