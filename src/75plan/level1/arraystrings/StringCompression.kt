@@ -12,31 +12,11 @@ package `75plan`.level1.arraystrings
  */
 class StringCompression {
     fun compress(chars: CharArray): Int {
-//        var result = 0
-//        var currentChar = ' '
-//        var currentLength = 0
-//        var newCharArray = mutableListOf<Char>()
-//        chars.forEachIndexed { index, c ->
-//            if (c != currentChar || index == chars.size-1) {
-//                newCharArray.add(currentChar)
-//                newCharArray.add(currentLength.toChar())
-//                if (currentLength == 1) {
-//                    result++
-//                } else if (currentLength > 1) {
-//                    result += 1 + numberOfDigits(currentLength)
-//                }
-//                currentLength = 1
-//                currentChar = c
-//            } else {
-//                currentLength++
-//            }
-//        }
-//        return result
+        var result = 0
+        var counter = 0
+
+        while (counter )
+        return result
     }
 
-//    private fun numberOfDigits(n: Int): Int =
-//        when (n) {
-//            in -9..9 -> 1
-//            else -> 1 + numberOfDigits(n / 10)
-//        }
 }
