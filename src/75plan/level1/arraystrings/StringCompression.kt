@@ -15,7 +15,7 @@ class StringCompression {
         var result = 0
         var counter = 0
 
-        while (counter )
+        while (counter < )
         return result
     }
 
