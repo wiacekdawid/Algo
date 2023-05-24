@@ -11,12 +11,26 @@ package `75plan`.level1.arraystrings
  * You must write an algorithm that uses only constant extra space.
  */
 class StringCompression {
+    // time O(n) / space O(1)
     fun compress(chars: CharArray): Int {
-        var result = 0
-        var counter = 0
+        var res = 0
+        var currentIndex = 0
 
-        while (counter < )
-        return result
+        while (currentIndex < chars.size) {
+            var groupLength = 1
+
+            while (currentIndex + groupLength < chars.size && chars[currentIndex + groupLength] == chars[currentIndex]) {
+                groupLength++
+            }
+            chars[res++] = chars[currentIndex]
+            if (groupLength > 1) {
+                groupLength.toString().toCharArray().forEach {
+                    chars[res++] = it
+                }
+            }
+            currentIndex += groupLength
+        }
+        return res
     }
 
 }
