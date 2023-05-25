@@ -32,5 +32,4 @@ class StringCompression {
         }
         return res
     }
-
 }
