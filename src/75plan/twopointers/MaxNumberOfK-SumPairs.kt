@@ -8,6 +8,11 @@ package `75plan`.twopointers
 
 class `MaxNumberOfK-SumPairs` {
     fun maxOperations(nums: IntArray, k: Int): Int {
+        val map = mutableMapOf<Int, Int>()
+
+        nums.forEach {
+            map[it] = (map[it] ?: 0) + 1
+        }
 
     }
 }
