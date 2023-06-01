@@ -11,7 +11,7 @@ class `MaxNumberOfK-SumPairs` {
         val map = mutableMapOf<Int, Int>()
 
         nums.forEach {
-            map[it] = (map[it] ?: 0) + 1
+            map[it] = (map[it]?.orDefault(0)) + 1
         }
 
     }
