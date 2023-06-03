@@ -12,6 +12,7 @@ class `MaxNumberOfK-SumPairs` {
 
         nums.forEach {
             map[it] = (map[it] ?: 0) + 1
+            map[it]
         }
 
     }
