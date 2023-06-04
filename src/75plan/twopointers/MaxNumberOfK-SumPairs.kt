@@ -7,13 +7,26 @@ package `75plan`.twopointers
  */
 
 class `MaxNumberOfK-SumPairs` {
+    // time / space O(n)
     fun maxOperations(nums: IntArray, k: Int): Int {
         val map = mutableMapOf<Int, Int>()
 
         nums.forEach {
             map[it] = (map[it] ?: 0) + 1
-            map[it]
         }
 
+        var count = 0
+
+        nums.forEach {
+            val complement = k - it
+            if (map.getOrDefault(it, 0) > 0 && map.getOrDefault(complement, 0) > 0) {
+                if (!(it == complement && map.getOrDefault(it, 0) < 2)) {
+                    map[it] = map.getOrDefault(it, 0) - 1
+                    map[complement] = map.getOrDefault(complement, 0) - 1
+                    count++
+                }
+            }
+        }
+        return count
     }
 }
