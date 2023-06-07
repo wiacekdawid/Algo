@@ -6,6 +6,19 @@ package `75plan`.slidingwindow
  */
 class MaximumAverageSubarrayI {
     fun findMaxAverage(nums: IntArray, k: Int): Double {
+        if (nums.size < k) return 0.0
 
+        val currentArray = IntArray(size = k) { Integer.MIN_VALUE }
+        var currentMin = Integer.MAX_VALUE
+
+        nums.forEachIndexed { index, i ->
+            if (i < k) {
+                currentArray[index] = i
+                currentMin = i.coerceAtMost(currentMin)
+            } else {
+                if (i )
+            }
+
+        }
     }
 }
