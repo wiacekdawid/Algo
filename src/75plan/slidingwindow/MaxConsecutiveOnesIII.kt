@@ -9,6 +9,7 @@ fun main() {
 }
 
 class MaxConsecutiveOnesIII {
+    // time O(n) / space O(1)
     fun longestOnes(nums: IntArray, k: Int): Int {
         if (nums.isEmpty()) return 0
         var numOfNonOnes = 0
@@ -24,9 +25,10 @@ class MaxConsecutiveOnesIII {
                     while (numOfNonOnes > k) {
                         if (nums[leftIndex] == 0) {
                             numOfNonOnes--
+                        } else {
+                            currentLength--
                         }
                         leftIndex++
-                        currentLength--
                     }
                 } else {
                     currentLength++
