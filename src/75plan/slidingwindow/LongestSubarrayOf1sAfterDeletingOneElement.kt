@@ -7,6 +7,8 @@ package `75plan`.slidingwindow
 
 class LongestSubarrayOf1sAfterDeletingOneElement {
     fun longestSubarray(nums: IntArray): Int {
-
+        var maxSize = 0
+        var minIndex = 0
+        return maxSize
     }
 }
