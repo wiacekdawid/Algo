@@ -7,11 +7,12 @@ package `75plan`.prefixsum
 class UniqueNumberOfOccurrences {
     // time O(n) / space O(n)
     fun uniqueOccurrences(arr: IntArray): Boolean {
-        val setOfOccurr = HashSet<Int>()
+        val mapOfOccur = HashMap<Int, Int>()
         arr.forEach {
-            if (setOfOccurr.contains(it)) return false
-            setOfOccurr.add(it)
+            mapOfOccur[it] = mapOfOccur.getOrDefault(it, 0) + 1
         }
-        return true
+        val setOfOccur = HashSet<Int>(mapOfOccur.values)
+
+        return setOfOccur.size == mapOfOccur.size
     }
 }
