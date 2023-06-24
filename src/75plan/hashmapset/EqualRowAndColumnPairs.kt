@@ -7,6 +7,9 @@ package `75plan`.hashmapset
 class EqualRowAndColumnPairs {
     fun equalPairs(grid: Array<IntArray>): Int {
         var result = 0
+        grid.forEach {
+
+        }
         return result
     }
 }
