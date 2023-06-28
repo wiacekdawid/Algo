@@ -12,9 +12,11 @@ fun main() {
     val test = EqualRowAndColumnPairs().equalPairs(arrayOf(intArrayOf(3,2,1),intArrayOf(1,7,6),intArrayOf(2,7,7)))
 }
 class EqualRowAndColumnPairs {
+    // time O(n) space O(n)
     fun equalPairs(grid: Array<IntArray>): Int {
         val result = ArrayList<IntArray>()
         val mapOfCol = HashMap<String, Int>()
+
         grid.forEachIndexed { index, ints ->
             mapOfCol[ints.contentToString()] = index
         }
