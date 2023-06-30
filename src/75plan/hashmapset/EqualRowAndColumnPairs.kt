@@ -1,8 +1,5 @@
 package `75plan`.hashmapset
 
-import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 
 /**
  * Given a 0-indexed n x n integer matrix grid, return the number of pairs (ri, cj) such that row ri and column cj are equal.
@@ -31,5 +28,14 @@ class EqualRowAndColumnPairs {
             }
         }
         return result
+    }
+
+    internal class TrieNode {
+        var count = 0
+        var children: Map<Int, TrieNode>
+
+        init {
+            children = HashMap()
+        }
     }
 }
