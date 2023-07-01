@@ -32,10 +32,12 @@ class EqualRowAndColumnPairs {
 
     internal class TrieNode {
         var count = 0
-        var children: Map<Int, TrieNode>
+        var children: Map<Int, TrieNode> = HashMap()
+    }
 
-        init {
-            children = HashMap()
+    internal class Trie(trie: TrieNode = TrieNode()) {
+        fun insert(array: IntArray) {
+
         }
     }
 }
