@@ -1,5 +1,7 @@
 package `75plan`.stack
 
+import java.util.*
+
 /**
  * We are given an array asteroids of integers representing asteroids in a row.
  * For each asteroid, the absolute value represents its size, and the sign represents its direction (positive meaning right, negative meaning left).
@@ -12,6 +14,17 @@ package `75plan`.stack
 class AsteroidCollision {
     fun asteroidCollision(asteroids: IntArray): IntArray {
         val result = IntArray(asteroids.size)
+        val stack = Stack<Int>()
+        asteroids.forEach {
+            if (it >= 0) {
+                stack.push(it)
+            } else {
+                while(stack.isNotEmpty()) {
+                    val leftAstro = stack.pop()
+
+                }
+            }
+        }
         return result
     }
 }
