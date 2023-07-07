@@ -21,7 +21,9 @@ class AsteroidCollision {
             } else {
                 while(stack.isNotEmpty()) {
                     val leftAstro = stack.pop()
+                    if (leftAstro < 0) {
 
+                    }
                 }
             }
         }
