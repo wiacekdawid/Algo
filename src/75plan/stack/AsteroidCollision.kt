@@ -1,6 +1,7 @@
 package `75plan`.stack
 
 import java.util.*
+import kotlin.math.abs
 
 /**
  * We are given an array asteroids of integers representing asteroids in a row.
@@ -12,21 +13,36 @@ import java.util.*
  */
 
 class AsteroidCollision {
+    // time / space O(n)
     fun asteroidCollision(asteroids: IntArray): IntArray {
-        val result = IntArray(asteroids.size)
         val stack = Stack<Int>()
         asteroids.forEach {
-            if (it >= 0) {
-                stack.push(it)
-            } else {
-                while(stack.isNotEmpty()) {
-                    val leftAstro = stack.pop()
-                    if (leftAstro < 0) {
-
-                    }
+            var pushFlag = true
+            while (stack.isNotEmpty() && stack.peek() > 0 && it < 0) {
+                if (abs(stack.peek()) < abs(it)) {
+                    stack.pop()
+                    continue
                 }
+
+                if (abs(stack.peek()) == abs(it)) {
+                    stack.pop()
+                }
+
+                pushFlag = false
+                break
+            }
+
+            if (pushFlag) {
+                stack.push(it)
             }
         }
+
+        val result = IntArray(stack.size)
+
+        for ( i in result.size-1 downTo 0) {
+            result[i] = stack.pop()
+        }
+
         return result
     }
 }
