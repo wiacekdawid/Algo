@@ -14,7 +14,27 @@ class DecodeString {
     fun decodeString(s: String): String {
         val stack = Stack<Char>()
         s.forEach {
+            if (it == ']') {
+                val decodeString = ArrayList<Char>()
+                while(stack.peek() != '[') {
+                    decodeString.add(stack.pop())
+                }
 
+                // for [
+                stack.pop()
+
+                var base = 1
+                var k = 0
+
+                while (stack.isNotEmpty() && stack.peek().isDigit()) {
+                    k += (stack.pop() - '0') * base
+                    base *= 10
+                }
+
+                while (k > 0) {
+
+                }
+            }
         }
     }
 }
