@@ -1,5 +1,7 @@
 package `75plan`.queue
 
+import java.util.*
+
 /**
  * You have a RecentCounter class which counts the number of recent requests within a certain time frame.
  * Implement the RecentCounter class:
@@ -10,7 +12,13 @@ package `75plan`.queue
  * It is guaranteed that every call to ping uses a strictly larger value of t than the previous call.
  */
 class NumberOfRecentCalls {
+    // Time O(logn) / space O(1)
+    private val queue = PriorityQueue<Int>()
     fun ping(t: Int): Int {
-
+        queue.add(t)
+        queue.removeIf {
+            it < t - 3000
+        }
+        return queue.size
     }
 }
