@@ -12,7 +12,7 @@ import java.util.*
  * It is guaranteed that every call to ping uses a strictly larger value of t than the previous call.
  */
 class NumberOfRecentCalls {
-    // Time O(logn) / space O(1)
+    // Time O(logn) / space O(n)
     private val queue = PriorityQueue<Int>()
     fun ping(t: Int): Int {
         queue.add(t)
@@ -20,5 +20,15 @@ class NumberOfRecentCalls {
             it < t - 3000
         }
         return queue.size
+    }
+
+    // Time O(n) / space O(n)
+    private val listOfPings = LinkedList<Int>()
+    fun ping2(t: Int): Int {
+        listOfPings.add(t)
+        while(listOfPings.peekFirst() < t-3000) {
+            listOfPings.removeFirst()
+        }
+        return listOfPings.size
     }
 }
