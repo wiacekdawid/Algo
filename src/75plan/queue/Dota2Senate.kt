@@ -11,6 +11,9 @@ package `75plan`.queue
  */
 class Dota2Senate {
     fun predictPartyVictory(senate: String): String {
+        senate.forEach {
 
+        }
+        return ""
     }
 }
