@@ -13,7 +13,10 @@ class Dota2Senate {
     fun predictPartyVictory(senate: String): String {
         senate.forEach {
 
+
+
         }
+
         return ""
     }
 }
