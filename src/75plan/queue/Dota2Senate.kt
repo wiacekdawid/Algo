@@ -14,7 +14,7 @@ class Dota2Senate {
         senate.forEach {
 
             if (it.isNotEmpty()) {
-
+                var sb = StringBuilder()
             }
 
         }
