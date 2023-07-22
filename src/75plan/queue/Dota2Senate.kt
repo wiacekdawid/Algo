@@ -1,5 +1,7 @@
 package `75plan`.queue
 
+import java.util.*
+
 /**
  * In the world of Dota2, there are two parties: the Radiant and the Dire.
  * The Dota2 senate consists of senators coming from two parties. Now the Senate wants to decide on a change in the Dota2 game. The voting for this change is a round-based procedure. In each round, each senator can exercise one of the two rights:
@@ -11,6 +13,12 @@ package `75plan`.queue
  */
 class Dota2Senate {
     fun predictPartyVictory(senate: String): String {
+        val listOfR = LinkedList<Char>()
+        val listOfD = LinkedList<Char>()
+        val currentSenate = LinkedList<Char>()
+        senate.forEach { currentSenate.add(it) }
+
+
         senate.forEach {
 
             if (it.isNotEmpty()) {
