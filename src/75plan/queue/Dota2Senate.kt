@@ -12,21 +12,67 @@ import java.util.*
  * Suppose every senator is smart enough and will play the best strategy for his own party. Predict which party will finally announce the victory and change the Dota2 game. The output should be "Radiant" or "Dire".
  */
 class Dota2Senate {
+    // Greedy algorithm - time O(powN) / space O(n)
     fun predictPartyVictory(senate: String): String {
-        val listOfR = LinkedList<Char>()
-        val listOfD = LinkedList<Char>()
-        val currentSenate = LinkedList<Char>()
-        senate.forEach { currentSenate.add(it) }
 
+        // Sentae Char Array
+        var senateArray = senate.toCharArray()
 
-        senate.forEach {
+        // Count of Each Type of Senator to check for Winner
+        var rCount = senateArray.count { it == 'R' }
+        var dCount = senateArray.size - rCount
 
-            if (it.isNotEmpty()) {
-                var sb = StringBuilder()
+        // Ban the candidate "toBan", immediate next to "startAt"
+        // If have to loop around, then it means next turn will be of
+        // senator at same index. Returns loop around boolean
+        fun ban(toBan: Char, startAt: Int): Boolean {
+            var loopAround = false
+            var pointer = startAt
+
+            while (true) {
+                if (pointer == 0) {
+                    loopAround = true
+                }
+                if (senateArray[pointer] == toBan) {
+                    senateArray = senateArray.filterIndexed { index, _ -> index != pointer }.toCharArray()
+                    return loopAround
+                }
+                pointer = (pointer + 1) % senateArray.size
             }
 
+            loopAround
         }
 
-        return ""
+        // Turn of Senator at this index
+        var turn = 0
+
+        // While No Winner
+        while (rCount > 0 && dCount > 0) {
+
+            // Ban the next opponent, starting at one index ahead
+            // Taking MOD to loop around.
+            // If index of banned senator is before current index,
+            // then we need to decrement turn by 1, as we have removed
+            // a senator from list
+            if (senateArray[turn] == 'R') {
+                val bannedSenatorBefore = ban('D', (turn + 1) % senateArray.size)
+                dCount -= 1
+                if (bannedSenatorBefore) {
+                    turn -= 1
+                }
+            } else {
+                val bannedSenatorBefore = ban('R', (turn + 1) % senateArray.size)
+                rCount -= 1
+                if (bannedSenatorBefore) {
+                    turn -= 1
+                }
+            }
+
+            // Increment turn by 1
+            turn = (turn + 1) % senateArray.size
+        }
+
+        // Return Winner depending on count
+        return if (dCount == 0) "Radiant" else "Dire"
     }
 }
