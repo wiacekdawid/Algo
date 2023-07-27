@@ -7,6 +7,7 @@ package `75plan`.linkedlist
  */
 
 class DeleteTheMiddleNodeOfALinkedList {
+    // time / space
     fun deleteMiddle(head: ListNode?): ListNode? {
 
     }
