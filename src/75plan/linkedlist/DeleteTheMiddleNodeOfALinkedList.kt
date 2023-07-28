@@ -7,9 +7,20 @@ package `75plan`.linkedlist
  */
 
 class DeleteTheMiddleNodeOfALinkedList {
-    // time / space
+    // time O(n) / space O(1)
     fun deleteMiddle(head: ListNode?): ListNode? {
+        if (head?.next == null) {
+            return null
+        }
+        var fastHead = head.next?.next
+        var slowHead = head
+        while (fastHead?.next != null) {
+            slowHead = slowHead?.next
+            fastHead = fastHead.next?.next
+        }
 
+        slowHead?.next = slowHead?.next?.next
+        return head
     }
 
     class ListNode(var `val`: Int) {
