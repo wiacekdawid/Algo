@@ -28,6 +28,37 @@ class MaximumTwinSumOfALinkedList {
         return maxSum
     }
 
+    // time O(n) / space O(1)
+    fun pairSum2(head: ListNode?): Int {
+        var fast = head
+        var slow = head
+
+        while (fast?.next != null) {
+            fast = fast.next?.next
+            slow = slow?.next
+        }
+
+        var prev: ListNode? = null
+        var next: ListNode? = null
+
+        while (slow != null) {
+            next = slow.next
+            slow.next = prev
+            prev = slow
+            slow = next
+        }
+
+        var start = head
+        var maxSum = Int.MIN_VALUE
+        while (prev != null) {
+            maxSum = maxSum.coerceAtLeast(prev.`val` + (start?.`val` ?: 0))
+            prev = prev.next
+            start = start?.next
+        }
+
+        return maxSum
+    }
+
     class ListNode(var `val`: Int) {
         var next: ListNode? = null
     }
