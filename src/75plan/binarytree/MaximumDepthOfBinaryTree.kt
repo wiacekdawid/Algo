@@ -7,7 +7,8 @@ package `75plan`.binarytree
  */
 class MaximumDepthOfBinaryTree {
     fun maxDepth(root: TreeNode?): Int {
-        return 0
+        var maximumDept = 0
+        return maximumDept
     }
 
     class TreeNode(var `val`: Int) {
