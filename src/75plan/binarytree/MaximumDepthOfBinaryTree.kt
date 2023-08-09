@@ -6,9 +6,13 @@ package `75plan`.binarytree
  * path from the root node down to the farthest leaf node.
  */
 class MaximumDepthOfBinaryTree {
+    // time O(n) / space O(logn)
     fun maxDepth(root: TreeNode?): Int {
-        var maximumDept = 0
-        return maximumDept
+        return if (root == null) {
+            return 0
+        } else {
+            1 + maxDepth(root.left).coerceAtLeast(maxDepth(root.right))
+        }
     }
 
     class TreeNode(var `val`: Int) {
