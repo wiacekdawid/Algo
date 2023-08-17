@@ -7,26 +7,22 @@ import java.util.*
  */
 class LeafSimilarTrees {
 
+    // time/space O(l1 + l2)
     fun leafSimilar(root1: TreeNode?, root2: TreeNode?): Boolean {
-        return getLeafList(root1) == getLeafList(root2)
+        val list1 = mutableListOf<Int>()
+        val list2 = mutableListOf<Int>()
+        getLeafList(root1, list1)
+        getLeafList(root2, list2)
+        return list1 == list2
     }
 
-    private fun getLeafList(root: TreeNode?): List<Int> {
-        val list = mutableListOf<Int>()
-
-        val currentList = LinkedList<TreeNode>()
-        root?.let { currentList.add(it) }
-
-        while (currentList.isNotEmpty()) {
-            val currentNode = currentList.pop()
-            if (currentNode.left == null && currentNode.right == null) {
-                list.add(currentNode.`val`)
-            } else {
-                currentNode.left?.let { currentList.add(it) }
-                currentNode.right?.let { currentList.add(it) }
-            }
+    private fun getLeafList(root: TreeNode?, currentList: MutableList<Int>) {
+        if (root != null && root.left == null && root.right == null) {
+            currentList.add(root.`val`)
+        } else {
+            root?.left?.let { getLeafList(it, currentList) }
+            root?.right?.let { getLeafList(it, currentList) }
         }
-        return list.toList()
     }
 
     class TreeNode(var `val`: Int) {
