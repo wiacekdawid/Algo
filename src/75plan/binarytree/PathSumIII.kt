@@ -6,6 +6,12 @@ package `75plan`.binarytree
  */
 class PathSumIII {
     fun pathSum(root: TreeNode?, targetSum: Int): Int {
+        root?.let {
+
+        }
+    }
+
+    private fun checkSum(root: TreeNode?, list: MutableList<Int>): Int {
 
     }
 
