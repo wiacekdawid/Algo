@@ -27,6 +27,7 @@ fun main() {
 }
 
 class PathSumIII {
+    // prefix sum solution
     fun pathSum(root: TreeNode?, targetSum: Int): Int {
         return checkSum(root, mutableListOf(), targetSum)
     }
