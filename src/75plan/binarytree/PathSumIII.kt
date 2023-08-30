@@ -33,6 +33,10 @@ class PathSumIII {
         return checkSum(root, mutableListOf(), targetSum)
     }
 
+    private fun checkPrefixSum(root: TreeNode?, prefixSum: List<Int>) {
+
+    }
+
     private fun checkSum(root: TreeNode?, list: List<Int>, targetSum: Int): Int {
         return if (root == null) {
             0
