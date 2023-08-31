@@ -29,6 +29,7 @@ fun main() {
 class PathSumIII {
     // prefix sum solution time/space O(n)
     fun pathSum(root: TreeNode?, targetSum: Int): Int {
+        var numberOfResults = 0
         val prefixSum = mutableListOf<Int>()
         return checkSum(root, mutableListOf(), targetSum)
     }
