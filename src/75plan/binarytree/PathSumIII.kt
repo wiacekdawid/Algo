@@ -1,6 +1,5 @@
 package `75plan`.binarytree
 
-import apple.laf.JRSUIUtils
 
 /**
  * Given the root of a binary tree and an integer targetSum, return the number of paths where the sum of the values along the path equals targetSum.
@@ -28,39 +27,29 @@ fun main() {
 
 class PathSumIII {
     // prefix sum solution time/space O(n)
+    var count: Int = 0
+    var k = 0
+    var h: HashMap<Long, Int> = HashMap()
     fun pathSum(root: TreeNode?, targetSum: Int): Int {
-        var numberOfResults = 0
-        val prefixSum = mutableListOf<Int>()
-        return checkSum(root, mutableListOf(), targetSum)
+        k = targetSum
+        checkPrefixSum(root, 0L)
+        return count
     }
 
-    private fun checkPrefixSum(root: TreeNode?, prefixSum: List<Int>) {
+    private fun checkPrefixSum(root: TreeNode?, currentSum: Long) {
+        if (root == null) return
 
-    }
+        var newSum = currentSum + root.`val`
 
-    private fun checkSum(root: TreeNode?, list: List<Int>, targetSum: Int): Int {
-        return if (root == null) {
-            0
-        } else {
-            val newList: List<Int> = listOf(root.`val`).plus(list)
-            val isTargetSumWork: Boolean = checkIfTargetSumWork(newList, targetSum)
-            if (isTargetSumWork) {
-                1
-            } else {
-                0
-            } + checkSum(root.left, newList, targetSum) + checkSum(root.right, newList, targetSum)
-        }
-    }
+        if (newSum == k.toLong()) count++
 
-    private fun checkIfTargetSumWork(list: List<Int>, targetSum: Int): Boolean {
-        var sum = 0
-        println("Sum  = ${list.joinToString()}")
-        list.forEach {
-            sum += it
-            if (sum == targetSum) return true
-        }
-        println("Sum  = zwracam false")
-        return false
+        count += h.getOrDefault(newSum.toLong() - k, 0)
+        h[newSum.toLong()] = h.getOrDefault(newSum.toLong(), 0) + 1
+
+        checkPrefixSum(root.left, newSum)
+        checkPrefixSum(root.right, newSum)
+
+        h[newSum] = h.getOrDefault(newSum, 1) - 1
     }
 }
 
