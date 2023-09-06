@@ -12,15 +12,20 @@ package `75plan`.binarytree
  */
 
 class LongestZigZagPathinaBinaryTree {
+    // time / space O(n)
     fun longestZigZag(root: TreeNode?): Int {
         return zigzag(root?.left, 1, true).coerceAtLeast(zigzag(root?.right, 1, false))
     }
 
     private fun zigzag(root: TreeNode?, currentLength: Int, isPreviousLeft: Boolean): Int {
         return if (root == null) {
-            0
+            currentLength-1
         } else {
-            zigzag(root.left, 1, true).coerceAtLeast(zigzag(root.right, 1, false))
+            if (isPreviousLeft) {
+                zigzag(root.right, currentLength + 1, false).coerceAtLeast(zigzag(root.left, 1, true))
+            } else {
+                zigzag(root.left, currentLength + 1, true).coerceAtLeast(zigzag(root.right, 1, false))
+            }
         }
     }
 
