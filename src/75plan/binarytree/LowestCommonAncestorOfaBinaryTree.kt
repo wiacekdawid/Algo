@@ -6,12 +6,25 @@ package `75plan`.binarytree
  * as the lowest node in T that has both p and q as descendants (where we allow a node to be a descendant of itself).”
  */
 class LowestCommonAncestorOfaBinaryTree {
+    private var result: TreeNode? = null
+    // time/space O(n)
     fun lowestCommonAncestor(root: TreeNode?, p: TreeNode?, q: TreeNode?): TreeNode? {
-        if (root == null) {
-            return null
-        } else {
-            if (root.`val` == p?.`val`)
+        recurseTree(root, p, q)
+        return result
+    }
+
+    private fun recurseTree(root: TreeNode?, p: TreeNode?, q: TreeNode?): Boolean {
+        if (root == null) return false
+
+        val left = if (recurseTree(root.left, p, q)) 1 else 0
+        val right = if (recurseTree(root.right, p, q)) 1 else 0
+        val mid = if (root == p || root == q) 1 else 0
+
+        if (mid + left + right >= 2) {
+            result = root
         }
+
+        return (mid + left + right) > 0
     }
 
     class TreeNode(var `val`: Int = 0) {
