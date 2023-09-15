@@ -18,6 +18,25 @@ class DeleteNodeinaBST {
         }
     }
 
+    /*
+  One step right and then always left
+  */
+    private fun successor(root: TreeNode?): Int {
+        var root = root
+        root = root!!.right
+        while (root!!.left != null) root = root.left
+        return root.`val`
+    }
+
+    /*
+  One step left and then always right
+  */
+    private fun predecessor(root: TreeNode?): Int {
+        var root = root
+        root = root!!.left
+        while (root!!.right != null) root = root.right
+        return root.`val`
+    }
     class TreeNode(var `val`: Int) {
         var left: TreeNode? = null
         var right: TreeNode? = null
