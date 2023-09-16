@@ -9,23 +9,38 @@ package `75plan`.binarytree
 
 class DeleteNodeinaBST {
     fun deleteNode(root: TreeNode?, key: Int): TreeNode? {
-        if (root == null) {
-            return root
+        val currentRoot = root
+        if (currentRoot == null) {
+            return null
         } else {
-            if (root.`val` == key) {
-
+            if (key > root.`val`) {
+                root.right = deleteNode(root.right, key)
+            }
+            else if (key < root.`val`) {
+                root.left = deleteNode(root.left, key)
+            } else {
+                if (root.left == null && root.right == null) {
+                    return null
+                } else if (root.right != null) {
+                    root.`val` = successor(root)
+                    root.right = deleteNode(root.right, root.`val`)
+                } else {
+                    currentRoot.`val` = predecessor(root)
+                    currentRoot.right = deleteNode(root.right, root.`val`)
+                }
             }
         }
+        return currentRoot
     }
 
     /*
   One step right and then always left
   */
-    private fun successor(root: TreeNode?): Int {
-        var root = root
-        root = root!!.right
-        while (root!!.left != null) root = root.left
-        return root.`val`
+    private fun successor(root: TreeNode): Int {
+        var currentRoot: TreeNode? = root
+        currentRoot = currentRoot?.right
+        while (currentRoot?.left != null) currentRoot = currentRoot.left
+        return currentRoot.`val`
     }
 
     /*
