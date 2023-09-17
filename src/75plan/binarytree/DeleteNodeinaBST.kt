@@ -14,10 +14,10 @@ class DeleteNodeinaBST {
             return null
         } else {
             if (key > root.`val`) {
-                root.right = deleteNode(root.right, key)
+                currentRoot.right = deleteNode(currentRoot.right, key)
             }
             else if (key < root.`val`) {
-                root.left = deleteNode(root.left, key)
+                currentRoot.left = deleteNode(currentRoot.left, key)
             } else {
                 if (root.left == null && root.right == null) {
                     return null
