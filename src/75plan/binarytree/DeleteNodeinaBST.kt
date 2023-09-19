@@ -15,14 +15,13 @@ class DeleteNodeinaBST {
         } else {
             if (key > root.`val`) {
                 currentRoot.right = deleteNode(currentRoot.right, key)
-            }
-            else if (key < root.`val`) {
+            } else if (key < root.`val`) {
                 currentRoot.left = deleteNode(currentRoot.left, key)
             } else {
-                if (root.left == null && root.right == null) {
+                if (currentRoot.left == null && currentRoot.right == null) {
                     return null
-                } else if (root.right != null) {
-                    root.`val` = successor(root)
+                } else if (currentRoot.right != null) {
+                    currentRoot.`val` = successor(currentRoot)
                     root.right = deleteNode(root.right, root.`val`)
                 } else {
                     currentRoot.`val` = predecessor(root)
@@ -52,6 +51,7 @@ class DeleteNodeinaBST {
         while (root!!.right != null) root = root.right
         return root.`val`
     }
+
     class TreeNode(var `val`: Int) {
         var left: TreeNode? = null
         var right: TreeNode? = null
