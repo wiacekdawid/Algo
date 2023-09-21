@@ -22,7 +22,7 @@ class DeleteNodeinaBST {
                     return null
                 } else if (currentRoot.right != null) {
                     currentRoot.`val` = successor(currentRoot)
-                    root.right = deleteNode(root.right, root.`val`)
+                    currentRoot.right = deleteNode(currentRoot.right, currentRoot.`val`)
                 } else {
                     currentRoot.`val` = predecessor(root)
                     currentRoot.right = deleteNode(root.right, root.`val`)
