@@ -24,8 +24,8 @@ class DeleteNodeinaBST {
                     currentRoot.`val` = successor(currentRoot)
                     currentRoot.right = deleteNode(currentRoot.right, currentRoot.`val`)
                 } else {
-                    currentRoot.`val` = predecessor(root)
-                    currentRoot.right = deleteNode(root.right, root.`val`)
+                    currentRoot.`val` = predecessor(currentRoot)
+                    currentRoot.right = deleteNode(currentRoot.right, currentRoot.`val`)
                 }
             }
         }
