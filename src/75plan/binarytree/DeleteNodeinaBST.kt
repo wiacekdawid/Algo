@@ -8,12 +8,13 @@ package `75plan`.binarytree
  */
 
 class DeleteNodeinaBST {
+    // time O(logN) / space O(tree_height)
     fun deleteNode(root: TreeNode?, key: Int): TreeNode? {
         val currentRoot = root
         if (currentRoot == null) {
             return null
         } else {
-            if (key > root.`val`) {
+            if (key > currentRoot.`val`) {
                 currentRoot.right = deleteNode(currentRoot.right, key)
             } else if (key < root.`val`) {
                 currentRoot.left = deleteNode(currentRoot.left, key)
@@ -39,7 +40,7 @@ class DeleteNodeinaBST {
         var currentRoot: TreeNode? = root
         currentRoot = currentRoot?.right
         while (currentRoot?.left != null) currentRoot = currentRoot.left
-        return currentRoot.`val`
+        return currentRoot!!.`val`
     }
 
     /*
