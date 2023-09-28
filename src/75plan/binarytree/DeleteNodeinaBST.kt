@@ -10,48 +10,47 @@ package `75plan`.binarytree
 class DeleteNodeinaBST {
     // time O(logN) / space O(tree_height)
     fun deleteNode(root: TreeNode?, key: Int): TreeNode? {
-        val currentRoot = root
-        if (currentRoot == null) {
-            return null
+        if (root == null) return null
+
+        if (key > root.`val`) {
+            root.right = deleteNode(root.right, key)
+        } else if (key < root.`val`) {
+            root.left = deleteNode(root.left, key)
         } else {
-            if (key > currentRoot.`val`) {
-                currentRoot.right = deleteNode(currentRoot.right, key)
-            } else if (key < root.`val`) {
-                currentRoot.left = deleteNode(currentRoot.left, key)
+            if (root.left == null && root.right == null) {
+                root = null
+            } else if (root.right != null) {
+                root.`val` = successor(root.right as TreeNode)
+                root.right = deleteNode(root.right, root.`val`)
             } else {
-                if (currentRoot.left == null && currentRoot.right == null) {
-                    return null
-                } else if (currentRoot.right != null) {
-                    currentRoot.`val` = successor(currentRoot)
-                    currentRoot.right = deleteNode(currentRoot.right, currentRoot.`val`)
-                } else {
-                    currentRoot.`val` = predecessor(currentRoot)
-                    currentRoot.right = deleteNode(currentRoot.right, currentRoot.`val`)
-                }
+                root.`val` = predecessor(root.left as TreeNode)
+                root.right = deleteNode(root.right, root.`val`)
             }
         }
-        return currentRoot
+
+        return root
     }
 
-    /*
-  One step right and then always left
-  */
-    private fun successor(root: TreeNode): Int {
-        var currentRoot: TreeNode? = root
-        currentRoot = currentRoot?.right
-        while (currentRoot?.left != null) currentRoot = currentRoot.left
-        return currentRoot!!.`val`
+    /**
+     * One step left and then always right
+     */
+    private fun predecessor(currentRootLeft: TreeNode): Int {
+        var currentRoot = currentRootLeft
+        while (currentRoot.right != null) currentRoot = currentRoot.right as TreeNode
+        return currentRoot.`val`
     }
 
-    /*
-  One step left and then always right
-  */
-    private fun predecessor(root: TreeNode?): Int {
-        var root = root
-        root = root!!.left
-        while (root!!.right != null) root = root.right
-        return root.`val`
+    /**
+     * One step right and then always left
+     */
+    private fun successor(currentRootRight: TreeNode): Int {
+        var currentRoot: TreeNode = currentRootRight
+        while (currentRoot.left != null) currentRoot = currentRoot.left as TreeNode
+        return currentRoot.`val`
     }
+
+
+
 
     class TreeNode(var `val`: Int) {
         var left: TreeNode? = null
