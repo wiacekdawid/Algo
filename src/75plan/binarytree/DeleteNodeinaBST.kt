@@ -7,6 +7,14 @@ package `75plan`.binarytree
  * If the node is found, delete the node.
  */
 
+fun main() {
+    val test = DeleteNodeinaBST.TreeNode(2).apply {
+        this.right = DeleteNodeinaBST.TreeNode(1)
+    }
+
+    val result = DeleteNodeinaBST().deleteNode(test, 2)
+    val result1 = result
+}
 class DeleteNodeinaBST {
     // time O(logN) / space O(tree_height)
     fun deleteNode(root: TreeNode?, key: Int): TreeNode? {
@@ -19,6 +27,7 @@ class DeleteNodeinaBST {
         } else {
             if (root.left == null && root.right == null) {
                 root = null
+                return null
             } else if (root.right != null) {
                 root.`val` = successor(root.right as TreeNode)
                 root.right = deleteNode(root.right, root.`val`)
