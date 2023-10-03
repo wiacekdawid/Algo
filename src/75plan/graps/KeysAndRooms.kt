@@ -10,6 +10,7 @@ package `75plan`.graps
  */
 
 class KeysAndRooms {
+    // time / space
     fun canVisitAllRooms(rooms: List<List<Int>>): Boolean {
         return false
     }
