@@ -13,7 +13,7 @@ class KeysAndRooms {
     // time / space
     fun canVisitAllRooms(rooms: List<List<Int>>): Boolean {
         rooms.forEach { currentRoom ->
-            curretRoom
+            val curretRoom = currentRoom
         }
         return false
     }
