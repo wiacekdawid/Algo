@@ -18,6 +18,9 @@ class KeysAndRooms {
         val seen = BooleanArray(rooms.size)
 
         stack.push(0)
+        while(stack.isNotEmpty()) {
+            val current = stack.pop()
+        }
         rooms.forEach { currentRoom ->
             val curretRoom = currentRoom
         }
