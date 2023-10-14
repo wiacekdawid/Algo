@@ -12,18 +12,25 @@ import java.util.*
  */
 
 class KeysAndRooms {
-    // time / space
+    // time O(num_of_rooms + num_of_keys) / space O(num_of_rooms)
     fun canVisitAllRooms(rooms: List<List<Int>>): Boolean {
         val stack = Stack<Int>()
         val seen = BooleanArray(rooms.size)
+        seen[0] = true
 
         stack.push(0)
         while(stack.isNotEmpty()) {
             val current = stack.pop()
+            rooms[current].forEach {
+                if (!seen[it]) {
+                    seen[it] = true
+                    stack.push(it)
+                }
+            }
         }
-        rooms.forEach { currentRoom ->
-            val curretRoom = currentRoom
+        seen.forEach {
+            if (!it) return false
         }
-        return false
+        return true
     }
 }
