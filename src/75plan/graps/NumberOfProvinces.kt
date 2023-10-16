@@ -8,41 +8,26 @@ package `75plan`.graps
  * Return the total number of provinces.
  */
 class NumberOfProvinces {
+    // time O(n pow2)  / space O(n)
     fun findCircleNum(isConnected: Array<IntArray>): Int {
-        val listOfSets = mutableListOf<MutableSet<Int>>()
+        val visited = BooleanArray(isConnected.size)
+        var numOfComponents = 0
 
-        isConnected.forEachIndexed { indexCol, ints ->
-            ints.forEachIndexed { indexRow, i ->
-                if (i == 1) {
-                    val firstItem = isExist(listOfSets, indexCol)
-                    val secondItem = isExist(listOfSets, indexRow)
-
-                    if (firstItem && !secondItem) {
-                        listOfSets.forEach {
-                            if (it.contains(indexCol)) {
-                                it.add(indexRow)
-                            }
-                        }
-                    } else if (!firstItem && secondItem) {
-                        listOfSets.forEach {
-                            if (it.contains(indexRow)) {
-                                it.add(indexCol)
-                            }
-                        }
-                    } else if (!firstItem && !secondItem) {
-                        listOfSets.add(mutableSetOf(indexCol, indexRow))
-                    }
-                }
+        for (i in isConnected.indices) {
+            if (!visited[i]) {
+                numOfComponents++
+                dfs(i, isConnected, visited)
             }
         }
-
-        return listOfSets.size
+        return numOfComponents
     }
 
-    private fun isExist(listOfSets: MutableList<MutableSet<Int>>, checkedItem: Int) : Boolean {
-        listOfSets.forEach {
-            if (it.contains(checkedItem)) return true
+    private fun dfs(currentNode: Int, isConnected: Array<IntArray>, visited: BooleanArray) {
+        visited[currentNode] = true
+        for (i in isConnected.indices) {
+            if (isConnected[currentNode][i] == 1 && !visited[i]) {
+                dfs(i, isConnected, visited)
+            }
         }
-        return false
     }
 }
