@@ -1,5 +1,7 @@
 package `75plan`.graps
 
+import java.util.*
+
 /**
  * There are n cities. Some of them are connected, while some are not.
  * If city a is connected directly with city b, and city b is connected directly with city c, then city a is connected indirectly with city c.
@@ -16,7 +18,8 @@ class NumberOfProvinces {
         for (i in isConnected.indices) {
             if (!visited[i]) {
                 numOfComponents++
-                dfs(i, isConnected, visited)
+                //dfs(i, isConnected, visited)
+                bfs(i, isConnected, visited)
             }
         }
         return numOfComponents
@@ -27,6 +30,23 @@ class NumberOfProvinces {
         for (i in isConnected.indices) {
             if (isConnected[currentNode][i] == 1 && !visited[i]) {
                 dfs(i, isConnected, visited)
+            }
+        }
+    }
+
+    private fun bfs(currentNode: Int, isConnected: Array<IntArray>, visited: BooleanArray) {
+        val q = LinkedList<Int>()
+        q.offer(currentNode)
+        visited[currentNode] = true
+
+        while(q.isNotEmpty()) {
+            val node = q.poll()
+
+            for (i in isConnected.indices) {
+                if (isConnected[node][i] == 1 && !visited[i]) {
+                    q.offer(i)
+                    visited[i] = true
+                }
             }
         }
     }
