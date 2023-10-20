@@ -16,8 +16,8 @@ class ReorderRoutesToMakeAllPathsLeadToTheCityZero {
 
         connections.forEach { connection ->
             adj.computeIfAbsent(
-                connection[0], k ->
-            )
+                connection[0]) { k -> }
+
         }
     }
 }
