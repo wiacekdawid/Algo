@@ -19,7 +19,7 @@ class ReorderRoutesToMakeAllPathsLeadToTheCityZero {
                 connection[0]) { currentConnection ->
 
             }
-
+            val test
         }
     }
 }
