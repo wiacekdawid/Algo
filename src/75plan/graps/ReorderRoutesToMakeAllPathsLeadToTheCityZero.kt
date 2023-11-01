@@ -19,7 +19,7 @@ class ReorderRoutesToMakeAllPathsLeadToTheCityZero {
                 connection[0]) { currentConnection ->
 
             }
-            adj.forEach {
+            adj.forEach { map ->
 
             }
             val test
