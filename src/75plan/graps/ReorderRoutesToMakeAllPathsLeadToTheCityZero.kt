@@ -20,7 +20,7 @@ class ReorderRoutesToMakeAllPathsLeadToTheCityZero {
 
             }
             adj.forEach { map ->
-
+                val temp = 0
             }
             val test
         }
