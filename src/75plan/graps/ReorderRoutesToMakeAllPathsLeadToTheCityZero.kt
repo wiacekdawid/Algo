@@ -1,5 +1,7 @@
 package `75plan`.graps
 
+import java.util.*
+
 
 /**
  * There are n cities numbered from 0 to n - 1 and n - 1 roads such that there is only one way to travel between two different cities (this network form a tree).
@@ -11,18 +13,33 @@ package `75plan`.graps
  */
 
 class ReorderRoutesToMakeAllPathsLeadToTheCityZero {
-    fun minReorder(n: Int, connections: Array<IntArray>): Int {
-        val adj: HashMap<Int, List<List<Int>>> = HashMap()
+    var count = 0
 
-        connections.forEach { connection ->
-            adj.computeIfAbsent(
-                connection[0]) { currentConnection ->
-
-            }
-            adj.forEach { map ->
-                val test = 0
-            }
-            val test
+    private fun dfs(node: Int, parent: Int, adj: Map<Int, List<List<Int>>>) {
+        if (!adj.containsKey(node)) {
+            return
         }
+        adj[node]?.forEach {
+            val child = it[0]
+            val sign = it[1]
+            if (child != parent) {
+                count += sign
+                dfs(child, node, adj)
+            }
+        }
+    }
+
+    // time / space O(n)
+    fun minReorder(n: Int, connections: Array<IntArray>): Int {
+        val adj: HashMap<Int, ArrayList<List<Int>>> = HashMap()
+
+        for (connection in connections) {
+            adj.computeIfAbsent(connection[0]) { ArrayList() }.add(listOf(connection[1], 1))
+            adj.computeIfAbsent(connection[1]) { ArrayList() }.add(listOf(connection[0], 0))
+        }
+
+        dfs(0, -1, adj)
+
+        return count
     }
 }
