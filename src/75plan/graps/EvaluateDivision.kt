@@ -12,4 +12,7 @@ Note: The input is always valid. You may assume that evaluating the queries will
 Note: The variables that do not occur in the list of equations are undefined, so the answer cannot be determined for them.
  */
 class EvaluateDivision {
+    fun evaludate() {
+
+    }
 }
