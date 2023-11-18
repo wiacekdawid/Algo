@@ -9,6 +9,21 @@ package `75plan`.graps
  */
 class EvaluateDivision {
     fun calcEquation(equations: List<List<String>>, values: DoubleArray, queries: List<List<String>>): DoubleArray {
+        val graph = HashMap<String, HashMap<String, Double>>()
 
+        equations.forEachIndexed { index, currentEquation ->
+            val currentValue = values[index]
+
+            if (!graph.containsKey(currentEquation[0])) {
+                graph[currentEquation[0]] = HashMap()
+            }
+
+            if (!graph.containsKey(currentEquation[1])) {
+                graph[currentEquation[1]] = HashMap()
+            }
+
+            graph[currentEquation[0]]?.put(currentEquation[1], currentValue)
+            graph[currentEquation[1]]?.put(currentEquation[0], currentValue)
+        }
     }
 }
