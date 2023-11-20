@@ -11,6 +11,7 @@ class EvaluateDivision {
     fun calcEquation(equations: List<List<String>>, values: DoubleArray, queries: List<List<String>>): DoubleArray {
         val graph = HashMap<String, HashMap<String, Double>>()
 
+        // creating the graph of dependencies
         equations.forEachIndexed { index, currentEquation ->
             val currentValue = values[index]
 
