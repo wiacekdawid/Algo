@@ -27,4 +27,8 @@ class EvaluateDivision {
             graph[currentEquation[1]]?.put(currentEquation[0], currentValue)
         }
     }
+
+    private fun find() {
+
+    }
 }
