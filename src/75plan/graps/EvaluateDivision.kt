@@ -28,7 +28,10 @@ class EvaluateDivision {
         }
     }
 
-    private fun find() {
+    private fun backtrackEvaluate(graph :HashMap<String, HashMap<String, Double>>, currentNode: String, targetNode: String, accProduct: Double, visited: MutableSet<String>): Double {
+        visited.add(currentNode)
+        val ret: Double = -1.0
+
 
     }
 }
