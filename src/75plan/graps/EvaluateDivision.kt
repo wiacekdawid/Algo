@@ -30,8 +30,13 @@ class EvaluateDivision {
 
     private fun backtrackEvaluate(graph :HashMap<String, HashMap<String, Double>>, currentNode: String, targetNode: String, accProduct: Double, visited: MutableSet<String>): Double {
         visited.add(currentNode)
-        val ret: Double = -1.0
+        var ret: Double = -1.0
 
+        val neighbours = graph[currentNode]
+
+        if (neighbours?.containsKey(targetNode) == true) {
+            ret = accProduct.times(neighbours[targetNode] ?: 1.0)
+        }
 
     }
 }
