@@ -8,35 +8,35 @@ package `75plan`.graps
  * Note: The variables that do not occur in the list of equations are undefined, so the answer cannot be determined for them.
  */
 class EvaluateDivision {
-    fun calcEquation(equations: List<List<String>>, values: DoubleArray, queries: List<List<String>>): DoubleArray {
-        val graph = HashMap<String, HashMap<String, Double>>()
-
-        // creating the graph of dependencies
-        equations.forEachIndexed { index, currentEquation ->
-            val currentValue = values[index]
-
-            if (!graph.containsKey(currentEquation[0])) {
-                graph[currentEquation[0]] = HashMap()
-            }
-
-            if (!graph.containsKey(currentEquation[1])) {
-                graph[currentEquation[1]] = HashMap()
-            }
-
-            graph[currentEquation[0]]?.put(currentEquation[1], currentValue)
-            graph[currentEquation[1]]?.put(currentEquation[0], currentValue)
-        }
-    }
-
-    private fun backtrackEvaluate(graph :HashMap<String, HashMap<String, Double>>, currentNode: String, targetNode: String, accProduct: Double, visited: MutableSet<String>): Double {
-        visited.add(currentNode)
-        var ret: Double = -1.0
-
-        val neighbours = graph[currentNode]
-
-        if (neighbours?.containsKey(targetNode) == true) {
-            ret = accProduct.times(neighbours[targetNode] ?: 1.0)
-        }
-
-    }
+//    fun calcEquation(equations: List<List<String>>, values: DoubleArray, queries: List<List<String>>): DoubleArray {
+//        val graph = HashMap<String, HashMap<String, Double>>()
+//
+//        // creating the graph of dependencies
+//        equations.forEachIndexed { index, currentEquation ->
+//            val currentValue = values[index]
+//
+//            if (!graph.containsKey(currentEquation[0])) {
+//                graph[currentEquation[0]] = HashMap()
+//            }
+//
+//            if (!graph.containsKey(currentEquation[1])) {
+//                graph[currentEquation[1]] = HashMap()
+//            }
+//
+//            graph[currentEquation[0]]?.put(currentEquation[1], currentValue)
+//            graph[currentEquation[1]]?.put(currentEquation[0], currentValue)
+//        }
+//    }
+//
+//    private fun backtrackEvaluate(graph :HashMap<String, HashMap<String, Double>>, currentNode: String, targetNode: String, accProduct: Double, visited: MutableSet<String>): Double {
+//        visited.add(currentNode)
+//        var ret: Double = -1.0
+//
+//        val neighbours = graph[currentNode]
+//
+//        if (neighbours?.containsKey(targetNode) == true) {
+//            ret = accProduct.times(neighbours[targetNode] ?: 1.0)
+//        }
+//
+//    }
 }

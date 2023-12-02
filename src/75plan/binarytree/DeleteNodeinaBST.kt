@@ -26,7 +26,7 @@ class DeleteNodeinaBST {
             root.left = deleteNode(root.left, key)
         } else {
             if (root.left == null && root.right == null) {
-                root = null
+//                root = null
                 return null
             } else if (root.right != null) {
                 root.`val` = successor(root.right as TreeNode)
