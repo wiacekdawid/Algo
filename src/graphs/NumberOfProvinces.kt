@@ -1,5 +1,7 @@
 package graphs
 
+import java.util.*
+
 /**
  * There are n cities. Some of them are connected, while some are not. If city a is connected directly with city b,
  * and city b is connected directly with city c, then city a is connected indirectly with city c.
@@ -16,7 +18,8 @@ class NumberOfProvinces {
         for (i in isConnected.indices) {
             if (!visited[i]) {
                 numberOfProvinces++
-                dfs(visited, isConnected, i)
+                //dfs(visited, isConnected, i)
+                bfs(visited, isConnected, i)
             }
         }
 
@@ -28,6 +31,20 @@ class NumberOfProvinces {
         for (i in isConnected.indices) {
             if (!visited[i] && isConnected[currentIndex][i] == 1) {
                 dfs(visited, isConnected, i)
+            }
+        }
+    }
+
+    private fun bfs(visited: BooleanArray, isConnected: Array<IntArray>, currentIndex: Int) {
+        val queue = LinkedList<Int>()
+        queue.offer(currentIndex)
+        while (queue.isNotEmpty()) {
+            val noddle = queue.poll()
+            for (i in isConnected.indices) {
+                if (isConnected[noddle][i] == 1 && !visited[i]) {
+                    queue.offer(i)
+                    visited[i] = true
+                }
             }
         }
     }
