@@ -1,6 +1,7 @@
 package graphs
 
 import com.sun.org.apache.xpath.internal.operations.Bool
+import java.util.*
 
 /**
  * You have a graph of n nodes. You are given an integer n and an array edges where edges[i] = [ai, bi]
@@ -32,6 +33,7 @@ class Number0fConnectedComponentsInAnUndirectedGraph {
             if (!visited[i]) {
                 numOfComponents++
                 dfs(adjList, visited, i)
+                bfs(adjList, visited, i)
             }
         }
         return numOfComponents
@@ -45,5 +47,11 @@ class Number0fConnectedComponentsInAnUndirectedGraph {
                 dfs(adjList, visited, it)
             }
         }
+    }
+
+    private fun bfs(adjList: List<List<Int>>, visited: BooleanArray, startNode: Int) {
+        val queue = LinkedList<Int>()
+        queue.offer(startNode)
+
     }
 }
