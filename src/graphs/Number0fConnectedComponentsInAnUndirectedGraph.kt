@@ -54,7 +54,9 @@ class Number0fConnectedComponentsInAnUndirectedGraph {
         queue.offer(startNode)
         while (queue.isNotEmpty()) {
             val noddle = queue.poll()
+            if (noddle != null) {
 
+            }
         }
     }
 }
