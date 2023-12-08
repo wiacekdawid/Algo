@@ -32,7 +32,7 @@ class Number0fConnectedComponentsInAnUndirectedGraph {
         for (i in 0 until n) {
             if (!visited[i]) {
                 numOfComponents++
-                dfs(adjList, visited, i)
+//                dfs(adjList, visited, i)
                 bfs(adjList, visited, i)
             }
         }
