@@ -51,11 +51,12 @@ class Number0fConnectedComponentsInAnUndirectedGraph {
 
     private fun bfs(adjList: List<List<Int>>, visited: BooleanArray, startNode: Int) {
         val queue = LinkedList<Int>()
-        queue.offer(startNode)
+        queue.addAll(adjList[startNode])
         while (queue.isNotEmpty()) {
-            val noddle = queue.poll()
-            if (noddle != null) {
-
+            val current = queue.poll()
+            if (!visited[current]) {
+                visited[current] = true
+                queue.addAll(adjList[current])
             }
         }
     }
