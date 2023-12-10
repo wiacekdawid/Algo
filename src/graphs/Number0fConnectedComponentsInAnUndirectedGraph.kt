@@ -15,8 +15,36 @@ fun main() {
 }
 
 class Number0fConnectedComponentsInAnUndirectedGraph {
-    // time / space O(numOfEdges + numOfVertices)
+    // disjoint set union
     fun countComponents(n: Int, edges: Array<IntArray>): Int {
+        val representative = IntArray(size = n)
+        val size = IntArray(size = n)
+
+        for (i in 0 until n) {
+            representative[i] = i
+            size[i] = 1
+        }
+
+        var numOfComponents = n
+        for (i in edges.indices) {
+            numOfComponents -= combine(representative, size, edges[i][0], edges[i][1])
+        }
+        return numOfComponents
+    }
+
+    private fun combine(representative: IntArray, size: IntArray, vertex1: Int, vertex2: Int): Int {
+
+    }
+
+    private fun find(representative: IntArray, vertex: Int): Int {
+        if (vertex == representative[vertex]) {
+            return vertex
+        }
+        return
+    }
+
+    // time / space O(numOfEdges + numOfVertices)
+    fun countComponents2(n: Int, edges: Array<IntArray>): Int {
         val visited = BooleanArray(size = n)
         var numOfComponents = 0
 
