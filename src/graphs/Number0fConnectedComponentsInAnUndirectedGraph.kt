@@ -40,7 +40,7 @@ class Number0fConnectedComponentsInAnUndirectedGraph {
         if (vertex == representative[vertex]) {
             return vertex
         }
-        return
+        return 0
     }
 
     // time / space O(numOfEdges + numOfVertices)
