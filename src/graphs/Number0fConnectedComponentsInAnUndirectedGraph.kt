@@ -33,6 +33,9 @@ class Number0fConnectedComponentsInAnUndirectedGraph {
     }
 
     private fun combine(representative: IntArray, size: IntArray, vertex1: Int, vertex2: Int): Int {
+        val _vertex1 = find(representative, vertex1)
+        val _vertex2 = find(representative, vertex2)
+
         return 0
     }
 
