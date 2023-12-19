@@ -37,7 +37,7 @@ class Number0fConnectedComponentsInAnUndirectedGraph {
         val _vertex2 = find(representative, vertex2)
 
         if (_vertex1 == _vertex2) {
-            return 0
+            return 1
         }
         return 0
     }
