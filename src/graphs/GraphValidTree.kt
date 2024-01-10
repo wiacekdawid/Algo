@@ -7,6 +7,9 @@ package graphs
  */
 class GraphValidTree {
     fun validTree(n: Int, edges: Array<IntArray>): Boolean {
+        edges.forEach {
 
+        }
+        return false
     }
 }
