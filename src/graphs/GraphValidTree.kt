@@ -8,7 +8,7 @@ package graphs
 class GraphValidTree {
     fun validTree(n: Int, edges: Array<IntArray>): Boolean {
         edges.forEach {
-
+            val test = it
         }
         return false
     }
