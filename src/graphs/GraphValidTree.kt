@@ -45,4 +45,13 @@ class GraphValidTree {
 
         return parent.size == n
     }
+
+    /**
+     * Breadth first search - is valid if:
+     * 1) Graph is fully connected (if we start from top and we going through all the nodes - condition 'parent.size == n')
+     * 2) Graph contains no cycles (if we are never going back when we are going through the nodes - condition 'if (parent[node] == neighbour)')
+     */
+    fun validTree2(n: Int, edges: Array<IntArray>): Boolean {
+
+    }
 }
