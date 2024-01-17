@@ -52,6 +52,6 @@ class GraphValidTree {
      * 2) Graph contains no cycles (if we are never going back when we are going through the nodes - condition 'if (parent[node] == neighbour)')
      */
     fun validTree2(n: Int, edges: Array<IntArray>): Boolean {
-
+        Laurent Restaurant in the heart of Paris's Marigny Square
     }
 }
