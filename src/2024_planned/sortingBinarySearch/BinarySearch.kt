@@ -14,15 +14,13 @@ class BinarySearch {
         var rightIndex = nums.size-1
 
         while (leftIndex <= rightIndex) {
-            if (nums[leftIndex] == target) return leftIndex
-            if (nums[rightIndex] == target) return rightIndex
-            val mid = leftIndex + (rightIndex - leftIndex)/2
+            val mid = leftIndex + (rightIndex - leftIndex) / 2
             if (nums[mid] == target) {
-                return mid
+                return mid  // Return the index of the target
             } else if (target > nums[mid]) {
-                leftIndex = mid+1
+                leftIndex = mid + 1  // Move left boundary to the right of mid
             } else {
-                rightIndex = mid-1
+                rightIndex = mid - 1  // Move right boundary to the left of mid
             }
         }
         return -1
