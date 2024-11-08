@@ -1,4 +1,4 @@
-package `2024_planned`.linkedlist
+package `2024_planned`.linkedliststackqueue
 
 /**
  * Given the head of a singly linked list, reverse the list, and return the reversed list.

@@ -1,4 +1,4 @@
-package `2024_planned`.linkedlist
+package `2024_planned`.linkedliststackqueue
 
 /**
  * Given head, the head of a linked list, determine if the linked list has a cycle in it.

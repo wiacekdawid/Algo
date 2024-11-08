@@ -1,6 +1,4 @@
-package `2024_planned`.linkedlist
-
-import java.util.*
+package `2024_planned`.linkedliststackqueue
 
 /**
  * Design a data structure that follows the constraints of a Least Recently Used (LRU) cache.

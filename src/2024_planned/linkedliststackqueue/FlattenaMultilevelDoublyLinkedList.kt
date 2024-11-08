@@ -1,4 +1,4 @@
-package `2024_planned`.linkedlist
+package `2024_planned`.linkedliststackqueue
 
 /**
  * You are given a doubly linked list, which contains nodes that have a next pointer, a previous pointer, and an additional child pointer.
