@@ -7,7 +7,7 @@ package `2024_planned`.graphs
  * Return true if you can finish all courses. Otherwise, return false.
  */
 
-// time / space O(V+E)
+// time O(V+E) / space O(V)
 class CourseSchedule {
     fun canFinish(numCourses: Int, prerequisites: Array<IntArray>): Boolean {
         val adjacencyList = Array(numCourses) { mutableListOf<Int>() }
