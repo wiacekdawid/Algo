@@ -6,8 +6,19 @@ package `2024_sumUp3Weeks`.linkedListTwoPointers
  * You can return the answer in any order.
  */
 
+// time / space O(n)
 class TwoSum {
     fun twoSum(nums: IntArray, target: Int): IntArray {
+        val visited = HashMap<Int, Int>()
 
+        nums.forEachIndexed { index, i ->
+            val requiredComplement = target - i
+            if (visited.containsKey(requiredComplement)) {
+                return intArrayOf(visited.getValue(requiredComplement), index)
+            }
+            visited[i] = index
+        }
+
+        throw IllegalStateException("Solution does not exist")
     }
 }
