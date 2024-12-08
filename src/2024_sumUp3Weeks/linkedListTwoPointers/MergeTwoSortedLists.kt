@@ -6,6 +6,8 @@ package `2024_sumUp3Weeks`.linkedListTwoPointers
  * The list should be made by splicing together the nodes of the first two lists.
  * Return the head of the merged linked list.
  */
+
+// time O(n) / space O(1)
 class MergeTwoSortedLists {
     fun mergeTwoLists(list1: ListNode?, list2: ListNode?): ListNode? {
         if (list1 == null) return list2
