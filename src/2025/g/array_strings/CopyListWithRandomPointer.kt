@@ -13,4 +13,34 @@ package `2025`.g.array_strings
  * Your code will only be given the head of the original linked list.
  */
 class CopyListWithRandomPointer {
+    // time / space O(n)
+    fun copyRandomList(node: Node?): Node? {
+        if (node == null) return null
+
+        val randomContainer = HashMap<Node, Node>()
+
+        // Step 1: Create new nodes for each old node and store them in the map
+        var current = node
+        while (current != null) {
+            randomContainer[current] = Node(current.`val`)
+            current = current.next
+        }
+
+        // Step 2: Set `next` and `random` pointers for the new nodes
+        current = node
+        while (current != null) {
+            val newNode = randomContainer[current]
+            newNode?.next = randomContainer[current.next]
+            newNode?.random = randomContainer[current.random]
+            current = current.next
+        }
+
+        // Step 3: Return the head of the new list
+        return randomContainer[node]
+    }
+
+    class Node(var `val`: Int) {
+        var next: Node? = null
+        var random: Node? = null
+    }
 }
