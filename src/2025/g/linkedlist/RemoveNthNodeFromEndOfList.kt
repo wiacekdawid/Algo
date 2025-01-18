@@ -6,7 +6,7 @@ package `2025`.g.linkedlist
 
 class RemoveNthNodeFromEndOfList {
     fun removeNthFromEnd(head: ListNode?, n: Int): ListNode? {
-
+        if (head == null) return null
     }
 
     class ListNode(var `val`: Int) {
