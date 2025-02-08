@@ -14,7 +14,25 @@ package `2025`.g.treesgraphs
  */
 
 class CrackingTheSafe {
+    // time / space O(k^n)
     fun crackSafe(n: Int, k: Int): String {
+        val seen = mutableSetOf<String>()
+        val ans = StringBuilder()
 
+        fun dfs(node: String) {
+            for (digit in 0 until k) {
+                val newNode = node + digit.toString()
+                if (newNode !in seen) {
+                    seen.add(newNode)
+                    dfs(newNode.substring(1))  // Move forward by removing the first character
+                    ans.append(digit)  // Append digit to the final result
+                }
+            }
+        }
+
+        val startNode = "0".repeat(n - 1)  // Initial node with (n-1) zeroes
+        dfs(startNode)
+
+        return ans.append(startNode).toString()
     }
 }
