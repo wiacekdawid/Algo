@@ -7,8 +7,20 @@ package `2025`.g.array_strings
 
  */
 class PlusOne {
+    // time space O(n)
     fun plusOne(digits: IntArray): IntArray {
-        val test  = 1
-        return intarrayOf()
+        var carry = 1
+        val output = digits.copyOf() // Copy original array to modify in place
+
+        for (index in digits.indices.reversed()) {
+            val current = output[index] + carry
+            output[index] = current % 10
+            carry = current / 10
+
+            if (carry == 0) return output // Early return if no carry left
+        }
+
+        // If carry remains, prepend 1 (e.g., 999 → 1000)
+        return intArrayOf(1) + output
     }
 }
