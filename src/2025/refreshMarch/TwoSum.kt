@@ -6,6 +6,7 @@ package `2025`.refreshMarch
  * You can return the answer in any order.
  */
 
+// time space O(n)
 class TwoSum {
     fun twoSum(nums: IntArray, target: Int): IntArray {
         val complementMap = HashMap<Int, Int>()
